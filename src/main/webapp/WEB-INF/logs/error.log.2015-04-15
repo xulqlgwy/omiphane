@@ -1,0 +1,118 @@
+2015-04-15 22:26:34 [ main:833 ] - [ ERROR ] Context initialization failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [conf/applicationContext.xml]: Invocation of init method failed; nested exception is org.springframework.core.NestedIOException: Failed to parse config resource: class path resource [conf/mybatis-config.xml]; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing SQL Mapper Configuration. Cause: org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 46; columnNumber: 11; 元素类型 "if" 必须由匹配的结束标记 "</if>" 终止。
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1482)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:521)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:458)
+	at org.springframework.beans.factory.support.AbstractBeanFactory$1.getObject(AbstractBeanFactory.java:295)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:223)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:292)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:194)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:610)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:932)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:479)
+	at org.springframework.web.context.ContextLoader.configureAndRefreshWebApplicationContext(ContextLoader.java:389)
+	at org.springframework.web.context.ContextLoader.initWebApplicationContext(ContextLoader.java:294)
+	at org.springframework.web.context.ContextLoaderListener.contextInitialized(ContextLoaderListener.java:112)
+	at org.eclipse.jetty.server.handler.ContextHandler.callContextInitialized(ContextHandler.java:787)
+	at org.eclipse.jetty.servlet.ServletContextHandler.callContextInitialized(ServletContextHandler.java:434)
+	at org.eclipse.jetty.server.handler.ContextHandler.startContext(ContextHandler.java:779)
+	at org.eclipse.jetty.servlet.ServletContextHandler.startContext(ServletContextHandler.java:284)
+	at org.eclipse.jetty.webapp.WebAppContext.startContext(WebAppContext.java:1322)
+	at org.eclipse.jetty.server.handler.ContextHandler.doStart(ContextHandler.java:731)
+	at org.eclipse.jetty.webapp.WebAppContext.doStart(WebAppContext.java:490)
+	at org.eclipse.jetty.maven.plugin.JettyWebAppContext.doStart(JettyWebAppContext.java:280)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:69)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:108)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:90)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:58)
+	at org.eclipse.jetty.server.handler.ContextHandlerCollection.doStart(ContextHandlerCollection.java:175)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:69)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:108)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:90)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:58)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:69)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.start(ContainerLifeCycle.java:108)
+	at org.eclipse.jetty.server.Server.start(Server.java:342)
+	at org.eclipse.jetty.util.component.ContainerLifeCycle.doStart(ContainerLifeCycle.java:90)
+	at org.eclipse.jetty.server.handler.AbstractHandler.doStart(AbstractHandler.java:58)
+	at org.eclipse.jetty.server.Server.doStart(Server.java:290)
+	at org.eclipse.jetty.maven.plugin.JettyServer.doStart(JettyServer.java:68)
+	at org.eclipse.jetty.util.component.AbstractLifeCycle.start(AbstractLifeCycle.java:69)
+	at org.eclipse.jetty.maven.plugin.AbstractJettyMojo.startJetty(AbstractJettyMojo.java:556)
+	at org.eclipse.jetty.maven.plugin.AbstractJettyMojo.execute(AbstractJettyMojo.java:352)
+	at org.eclipse.jetty.maven.plugin.JettyRunMojo.execute(JettyRunMojo.java:167)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:106)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:208)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:153)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:145)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:84)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:59)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.singleThreadedBuild(LifecycleStarter.java:183)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:161)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:317)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:152)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:555)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:214)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:158)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:289)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:229)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:415)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:356)
+	at org.codehaus.classworlds.Launcher.main(Launcher.java:46)
+Caused by: org.springframework.core.NestedIOException: Failed to parse config resource: class path resource [conf/mybatis-config.xml]; nested exception is org.apache.ibatis.builder.BuilderException: Error parsing SQL Mapper Configuration. Cause: org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 46; columnNumber: 11; 元素类型 "if" 必须由匹配的结束标记 "</if>" 终止。
+	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:434)
+	at org.mybatis.spring.SqlSessionFactoryBean.afterPropertiesSet(SqlSessionFactoryBean.java:340)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.invokeInitMethods(AbstractAutowireCapableBeanFactory.java:1541)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1479)
+	... 62 more
+Caused by: org.apache.ibatis.builder.BuilderException: Error parsing SQL Mapper Configuration. Cause: org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 46; columnNumber: 11; 元素类型 "if" 必须由匹配的结束标记 "</if>" 终止。
+	at org.apache.ibatis.builder.xml.XMLConfigBuilder.parseConfiguration(XMLConfigBuilder.java:106)
+	at org.apache.ibatis.builder.xml.XMLConfigBuilder.parse(XMLConfigBuilder.java:89)
+	at org.mybatis.spring.SqlSessionFactoryBean.buildSqlSessionFactory(SqlSessionFactoryBean.java:428)
+	... 65 more
+Caused by: org.apache.ibatis.builder.BuilderException: Error creating document instance.  Cause: org.xml.sax.SAXParseException; lineNumber: 46; columnNumber: 11; 元素类型 "if" 必须由匹配的结束标记 "</if>" 终止。
+	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:253)
+	at org.apache.ibatis.parsing.XPathParser.<init>(XPathParser.java:122)
+	at org.apache.ibatis.builder.xml.XMLMapperBuilder.<init>(XMLMapperBuilder.java:75)
+	at org.apache.ibatis.builder.xml.XMLConfigBuilder.mapperElement(XMLConfigBuilder.java:318)
+	at org.apache.ibatis.builder.xml.XMLConfigBuilder.parseConfiguration(XMLConfigBuilder.java:104)
+	... 67 more
+Caused by: org.xml.sax.SAXParseException; lineNumber: 46; columnNumber: 11; 元素类型 "if" 必须由匹配的结束标记 "</if>" 终止。
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.createSAXParseException(ErrorHandlerWrapper.java:198)
+	at com.sun.org.apache.xerces.internal.util.ErrorHandlerWrapper.fatalError(ErrorHandlerWrapper.java:177)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:441)
+	at com.sun.org.apache.xerces.internal.impl.XMLErrorReporter.reportError(XMLErrorReporter.java:368)
+	at com.sun.org.apache.xerces.internal.impl.XMLScanner.reportFatalError(XMLScanner.java:1388)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanEndElement(XMLDocumentFragmentScannerImpl.java:1709)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl$FragmentContentDriver.next(XMLDocumentFragmentScannerImpl.java:2900)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentScannerImpl.next(XMLDocumentScannerImpl.java:607)
+	at com.sun.org.apache.xerces.internal.impl.XMLDocumentFragmentScannerImpl.scanDocument(XMLDocumentFragmentScannerImpl.java:489)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:835)
+	at com.sun.org.apache.xerces.internal.parsers.XML11Configuration.parse(XML11Configuration.java:764)
+	at com.sun.org.apache.xerces.internal.parsers.XMLParser.parse(XMLParser.java:123)
+	at com.sun.org.apache.xerces.internal.parsers.DOMParser.parse(DOMParser.java:237)
+	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:300)
+	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:251)
+	... 71 more
+2015-04-15 22:32:39 [ qtp8168381-22:17855 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:38:49 [ qtp17743896-28:23285 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:41:37 [ qtp17743896-22:191412 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:41:57 [ qtp17743896-31:210926 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:42:02 [ qtp17743896-29:216662 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:42:14 [ qtp17743896-29:228813 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:42:48 [ qtp17743896-31:262633 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:44:24 [ qtp17743896-33:357852 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:45:02 [ qtp17743896-34:396651 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:45:19 [ qtp17743896-31:413831 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:46:01 [ qtp17743896-36:455357 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:51:57 [ qtp17743896-41:811675 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:52:33 [ qtp17743896-39:847131 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:55:30 [ qtp17743896-38:1024692 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:56:14 [ qtp17743896-38:1068057 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:58:30 [ qtp17743896-46:1204627 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:58:36 [ qtp17743896-39:1210143 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.
+2015-04-15 22:59:14 [ qtp17743896-42:1248577 ] - [ ERROR ] ResourceManager : unable to find resource '/airmanage/air_condition_manage.json.vm' in any resource loader.

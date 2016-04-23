@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.NodeGroupDao">
+    <resultMap type="NodeGroup" id="nodeGroupResultMap">
+        <id property="nid" column="nid"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="text" column="text"/>
+        <result property="memo" column="memo"/>
+        <result property="url" column="url"/>
+        <result property="leaf" column="leaf" javaType="Boolean" jdbcType="CHAR"/>
+    </resultMap>
+    <select id="getNodeListByUserId" parameterType="Integer" resultMap="nodeGroupResultMap">
+        select * from node_group where  user_group_id = #{userGroupId} and parent_id = #{id}
+    </select>
+
+    <select id="getNodeById" parameterType="Integer" resultMap="nodeGroupResultMap">
+        select * from node_group where  nid = #{nid}
+    </select>
+
+    <insert id="insertNodeGroup" parameterType="NodeGroup" useGeneratedKeys="true" keyProperty="id">
+        insert into node_group
+        (parent_id,text,memo,user_group_id,leaf)
+        values
+        (#{parentId},#{text},#{memo},#{userGroupId},#{leaf})
+    </insert>
+
+    <update id="updateNodeGroup" parameterType="NodeGroup">
+        update node_group
+        <set>
+            <if test="userGroupId != null">user_group_id = #{userGroupId},</if>
+            <if test="parent_id != null">parent_id = #{parentId},</if>
+            <if test="text !=null and text != ''">text = #{text},</if>
+            <if test="memo != null and memo != ''">memo = #{memo}</if>
+            <if test="leaf != null and leaf != ''">leaf = #{leaf}</if>
+        </set>
+        <where>
+            nid = #{nid}
+        </where>
+    </update>
+
+    <delete id="deleteNodeGroupById" parameterType="Integer">
+        delete from node_group where nid = #{nid}
+    </delete>
+
+    <delete id="deleteNodeGroupByUserId" parameterType="Integer">
+        delete from node_group where user_group_id = #{userGroupId}
+    </delete>
+
+    <select id="getChildrenNodesById" parameterType="Integer" resultMap="nodeGroupResultMap">
+        select * from node_group where parent_id = #{parentId} and user_group_id = #{userGroupId}
+    </select>
+</mapper>

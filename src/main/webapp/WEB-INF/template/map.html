@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
+#l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
+#r-result{height:100%;width:20%;float:left;}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<title>折线</title>
+</head>
+<body>
+<div id="allmap"></div>
+</body>
+</html>
+<script type="text/javascript">
+var map = new BMap.Map("allmap");
+var point = new BMap.Point(116.404, 39.915);
+map.addControl(new BMap.NavigationControl());  //添加默认缩放平移控件
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_TOP_RIGHT, type: BMAP_NAVIGATION_CONTROL_SMALL}));  //右上角，仅包含平移和缩放按钮
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_LEFT, type: BMAP_NAVIGATION_CONTROL_PAN}));  //左下角，仅包含平移按钮
+map.addControl(new BMap.NavigationControl({anchor: BMAP_ANCHOR_BOTTOM_RIGHT, type: BMAP_NAVIGATION_CONTROL_ZOOM}));  //右下角，仅包含缩放按钮
+
+map.centerAndZoom(point, 15);
+
+var arr=new Array();
+var arr_poly=new Array();
+var i=0;
+
+var timer_timeout = null;
+var polyline;
+var func = function() 
+{    
+    
+	if(i>0)
+	{
+		arr.push(new BMap.Point(116.399+0.002*i, 39.910+0.001*i));
+		polyline = new BMap.Polyline([arr[i-1],arr[i]], {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});
+		arr_poly.push(polyline);
+		map.addOverlay(polyline);
+	}
+	else if(i==0)
+	{
+		arr.push(new BMap.Point(116.399+0.002*i, 39.910+0.001*i));
+	}
+	
+	if(i==10)
+	{
+		alert("remove");
+		for(var j=0;j<arr_poly.length;j++)
+		{
+			map.removeOverlay(arr_poly[j]);
+		}		
+	}
+ 	timer_timeout = setTimeout(func, 1000);
+	i++;
+};
+func();
+
+/*for(var i=0;i<10;i++)
+{
+	arr.push(new BMap.Point(116.399+0.02*i, 39.910+0.01*i));
+	var polyline = new BMap.Polyline(arr, {strokeColor:"blue", strokeWeight:6, strokeOpacity:0.5});
+		map.addOverlay(polyline);
+}
+*/
+</script>

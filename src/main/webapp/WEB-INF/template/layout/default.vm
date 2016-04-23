@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!--[if IE 8]> <html lang="en" class="ie8"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en"> <!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+    <meta charset="utf-8"/>
+    <title>砂浆罐监控系统</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+
+    ##jQuery 1.11.2
+    ##toastr
+    <link rel="stylesheet" type="text/css" href="${rc.contextPath}/media/extjs/resources/css/ext-all.css" />
+    <script type="text/javascript" src="${rc.contextPath}/media/app/jquery.js"></script>
+##    <script type="text/javascript" src="${rc.contextPath}/media/extjs/ext.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/media/extjs/ext-all-debug.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/media/extjs/ext-lang-zh_CN.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/media/app/utils/jshashtable.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/media/app/utils/jshashtable_src.js"></script>
+    <!--引入百度api-->
+##    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=C09c918bbe0b24d988da51a15644d98a"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2028c3076245ea17fd1ad6819f3e0543"></script>
+    <script type="text/javascript" src="${rc.contextPath}/media/app/MapInfo.js"></script>
+
+    <script type="text/javascript" src="${rc.contextPath}/media/app/utils/datetime/UX_TimePickerField.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/media/app/utils/datetime/UX_DateTimePicker.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/media/app/utils/datetime/UX_DateTimeMenu.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/media/app/utils/datetime/UX_DateTimeField.js"></script>
+</head>
+
+<body class="page-header-fixed page-sidebar-fixed">
+
+<!-- BEGIN BODY -->
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-inverse navbar-fixed-top">
+    #parse('/layout/head.vm')
+</div>
+<!-- END HEADER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container row-fluid">
+    <!-- BEGIN PAGE -->
+    <div class="page-content">
+        <!-- BEGIN PAGE CONTAINER-->
+        <div class="container-fluid" id="pageContext">
+            $screen_content
+        </div>
+        <!-- END PAGE CONTAINER-->
+    </div>
+    <!-- END PAGE -->
+</div>
+<!-- END CONTAINER -->
+    #parse('/layout/footer.vm')
+</body>
+<!-- END BODY -->
+</html>

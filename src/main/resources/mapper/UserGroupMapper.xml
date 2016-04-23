@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.UserGroupDao">
+    <resultMap type="UserGroup" id="userGroupResultMap">
+        <id property="id" column="id"/>
+        <result property="groupName" column="group_name"/>
+    </resultMap>
+
+    <select id="getUserGroupById" parameterType="Integer" resultMap="userGroupResultMap">
+        select * from user_group where  id = #{id}
+    </select>
+
+    <insert id="insertUserGroup" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into user_group
+        (group_name)
+        values
+        (#{groupName})
+    </insert>
+
+    <update id="updateUserGroup" parameterType="User">
+        update user_group
+        <set>
+            <if test="groupName !=null and groupName != ''">group_name = #{loginName}</if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <delete id="deleteUserGroupById" parameterType="Integer">
+        delete user_group user where id = #{id}
+    </delete>
+</mapper>

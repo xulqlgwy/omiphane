@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.RCompanyNodeDao">
+    <resultMap type="RCompanyNode" id="rCompanyNodeResultMap">
+        <id property="id" column="id"/>
+        <result property="companyId" column="company_id"/>
+        <result property="nodeId" column="node_id"/>
+    </resultMap>
+
+    <select id="getRCompanyNodeById" parameterType="Integer" resultMap="rCompanyNodeResultMap">
+        select * from r_company_node where  id = #{id}
+    </select>
+
+    <insert id="insertRCompanyNode" parameterType="RCompanyNode" useGeneratedKeys="true" keyProperty="id">
+        insert into r_company_node
+        (company_id,node_id)
+        values
+        (#{companyId},#{nodeId})
+    </insert>
+
+    <update id="updateRCompanyNode" parameterType="RCompanyNode">
+        update r_company_node
+        <set>
+            <if test="companyId != null">company_id = #{companyId},</if>
+            <if test="nodeId != null">node_id = #{nodeId}</if>
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <delete id="deleteRCompanyNodeById" parameterType="Integer">
+        delete from r_company_node where id = #{id}
+    </delete>
+</mapper>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.UserDao">
+    <resultMap type="User" id="userResultMap">
+        <id property="id" column="id"/>
+        <result property="groupId" column="group_id"/>
+        <result property="loginName" column="login_name"/>
+        <result property="loginPass" column="login_pass"/>
+        <result property="email" column="email"/>
+        <result property="phone" column="phone"/>
+        <result property="department" column="department"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="lastLoginDate" column="last_login_date"/>
+        <result property="modifiedDate" column="modified_date"/>
+    </resultMap>
+    <select id="getUserListByUserId" parameterType="Integer" resultMap="userResultMap">
+        select * from user where  user_group_id = #{userGroupId}
+    </select>
+
+    <select id="getUserById" parameterType="Integer" resultMap="userResultMap">
+        select * from user where  id = #{id}
+    </select>
+
+    <insert id="insertUser" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into user
+        (group_id,login_name,login_pass,email,phone,department,creation_date,last_login_date,modified_date)
+        values
+        (#{groupId},#{loginName},#{loginPass},#{email},#{phone},#{department},sysdate(),sysdate(),sysdate())
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        update node_group
+        <set>
+            <if test="group_id != null">user_group_id = #{userGroupId},</if>
+            <if test="loginName !=null and loginName != ''">login_name = #{loginName},</if>
+            <if test="loginPass !=null and loginPass != ''">login_pass = #{loginPass},</if>
+            <if test="email !=null and email != ''">email = #{email},</if>
+            <if test="phone !=null and phone != ''">phone = #{phone},</if>
+            <if test="department !=null and department != ''">department = #{department},</if>
+            modified_date = sysdate()
+        </set>
+        <where>
+            id = #{id}
+        </where>
+    </update>
+
+    <delete id="deleteUserById" parameterType="Integer">
+        delete from user where id = #{id}
+    </delete>
+
+    <delete id="deleteUserByUserId" parameterType="Integer">
+        delete from user where user_group_id = #{userGroupId}
+    </delete>
+</mapper>

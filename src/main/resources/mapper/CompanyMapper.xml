@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.CompanyDao">
+    <resultMap type="Company" id="CompanyResultMap">
+        <id property="cid" column="id"/>
+        <result property="name" column="name"/>
+        <result property="address" column="address"/>
+        <result property="charger" column="charger"/>
+        <result property="phone" column="phone"/>
+        <result property="regTime" column="reg_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+    <select id="getCompanyById" parameterType="Integer" resultMap="CompanyResultMap">
+        select * from company where  id = #{id}
+    </select>
+
+    <insert id="insertCompany" parameterType="Company" useGeneratedKeys="true" keyProperty="id">
+        insert into company
+        (name,address,charger,phone,reg_time,status)
+        values
+        (#{name},#{address},#{charger},#{phone},#{regTime},#{status})
+    </insert>
+
+    <update id="updateCompany" parameterType="Company">
+        update company
+        <set>
+            <if test="name != null and name != ''">name = #{name},</if>
+            <if test="address != null and address != ''">address = #{address},</if>
+            <if test="charger !=null and charger != ''">charger = #{charger},</if>
+            <if test="phone != null and phone != ''">phone = #{phone}</if>
+            <if test="regTime != null and regTime != ''">ret_time = #{regTime}</if>
+            <if test="status != null and status != ''">status = #{status}</if>
+        </set>
+        <where>
+            id = #{cid}
+        </where>
+    </update>
+
+    <delete id="deleteCompanyById" parameterType="Integer">
+        delete from company where id = #{id}
+    </delete>
+
+    <select id="getCompanyListByNodeId" parameterType="Integer" resultMap="CompanyResultMap">
+        SELECT * FROM company c,r_company_node r where c.id = r.company_id and r.node_id = #{nodeId}
+    </select>
+
+
+    <select id="getCompanyListByFilter" parameterType="String" resultMap="CompanyResultMap">
+        SELECT * FROM company c where c.name LIKE CONCAT('%','${filter}','%')
+    </select>
+
+    <select id="getCompaniesByUserId" parameterType="Integer" resultMap="CompanyResultMap">
+        SELECT c.* FROM company c, r_company_user r where c.id = r.company_id and r.user_id = #{userId}
+    </select>
+</mapper>

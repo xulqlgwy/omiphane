@@ -1,0 +1,15 @@
+#set($layout = "/layout/blank.vm")
+<div>
+    <table>
+        <thead>
+           <th>roomName</th>
+           <th>roomId</th>
+        </thead>
+        <tbody>
+            <tr>
+                <td>303</td>
+                <td>101</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

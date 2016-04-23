@@ -1,0 +1,738 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style type="text/css">
+body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;}
+#l-map{height:100%;width:78%;float:left;border-right:2px solid #bcbcbc;}
+#r-result{height:100%;width:20%;float:left;}
+</style>
+<script type="text/javascript" src="http://api.map.baidu.com/api?v=1.4"></script>
+<script type="text/javascript" src="DistanceTool.js"></script>
+<script type="text/javascript" src="InfoBox_min.js"></script>
+<title>地图官网展示效果</title>
+</head>
+<body>
+<div id="allmap">
+</div>
+</body>
+<script type="text/javascript" src="jshashtable.js"></script>
+<script type="text/javascript">	
+	
+    //initMap(); //创建和初始化地图
+    //创建和初始化地图函数：
+	 //初始化地图 x=经度 y=维度 zoom 放大级别，其他待定
+	 //initMap(116.417, 39.909,15,true,true,true);
+	 
+	 /**********************命令定义***************************/
+	 var XG_RET_POINT=5003; 
+	 var XG_RET_SETTING=5004;
+	 var XG_RET_ADDPOINT=5005;
+	 var XG_RET_SHOWTRACK=5007;
+	 var XG_RET_OPENVEDIO=5008;
+	 var XG_RET_SERCH=5009;
+	 var XG_RET_MAPADDRESS=5015;
+	 /********************************************************/
+	 
+	 
+	 var Xg_MarkerTable= new Hashtable();//车辆标记点表
+	 var Xg_PointTable=new Hashtable();//兴趣点标记表
+	 var Xg_Track_Poly=new Array();//轨迹线段列表
+	 var Xg_Track_Points=new Array();//轨迹点列表
+	 var Xg_Track_LastPoint;//上一个轨迹点
+	 var Xg_Current_Bus;//当前选中的车辆json
+	 var Xg_Current_Track_Bus;//当前轨迹中最新的点
+	 var Xg_polyline;//轨迹marker
+	 
+	 var Xg_Head;//轨迹头
+	 var Xg_TrackView_line;//全部轨迹Map线
+	 var Xg_TrackView_All_Points;//全部轨迹点
+	 
+	 var Xg_TempBusTable=new Array();;//临时描述的车辆点位置
+	 var Xg_bVeidoShowing=false;
+	// initMap(120.0000,30.0000,15,1,1,1);
+	 function XgInitMap(data)
+	 {
+		var basejson = eval('(' + data + ')'); 
+		//alert(basejson.Xg_BaseAdvSetting_Longitude+","+basejson.Xg_BaseAdvSetting_Latitude+","+basejson.Xg_BaseAdvSetting_Zoom);
+		initMap(basejson.Xg_BaseAdvSetting_Longitude,basejson.Xg_BaseAdvSetting_Latitude,basejson.Xg_BaseAdvSetting_Zoom,1,1,1);
+	 }
+	 function initMap(x,y,zoom,bNav,bScale,bOverride) 
+	 { 
+        window.map = new BMap.Map("allmap");
+        map.centerAndZoom(new BMap.Point(x, y), zoom);
+        if(bNav)map.addControl(new BMap.NavigationControl());
+        if(bScale)map.addControl(new BMap.ScaleControl());
+        if(bOverride)map.addControl(new BMap.OverviewMapControl());
+		map.addControl(new BMap.MapTypeControl());  
+        map.enableScrollWheelZoom();                  // 启用滚轮放大缩小。
+        map.enableKeyboard();
+		map.enableScrollWheelZoom();    //启用滚轮放大缩小，默认禁用
+		map.enableContinuousZoom();    // 开启连续缩放效果
+		//map.enableInertialDragging();　// 开启惯性拖拽效果
+		//var myDis = new BMapLib.DistanceTool(map);//地图测距
+		//myDis.open(); 
+		Xg_Current_Track_Bus=null;
+		Xg_polyline=null;
+		map.addEventListener("click", function showinfo(e){
+			var zoom=map.getZoom();
+			window.external.ClickEvent_GetCenterPoint(e.point.lng + "," + e.point.lat+ "," +zoom,XG_RET_POINT);
+		});
+
+		map.addEventListener("dragend", function showInfo(){
+ 			var cp = map.getCenter();
+			var zoom=map.getZoom();
+ 			//alert(cp.lng + "," + cp.lat);
+			window.external.ClickEvent_GetCenterPoint(cp.lng + "," + cp.lat+ "," +zoom,XG_RET_POINT);
+			
+			});                       // 启用键盘操作。
+		var contextMenu = new BMap.ContextMenu();
+        var txtMenuItem = [
+        {
+            text:'放大',
+            callback:function(){map.zoomIn()}
+        },
+        {
+            text:'缩小',
+            callback:function(){map.zoomOut()}
+        },
+        {
+            text:'放置到最大级',
+            callback:function(){map.setZoom(18)}
+        },
+        {
+            text:'查看全国',
+            callback:function(){map.setZoom(4)}
+        },
+		{
+			text:'查找',
+			callback:function(){
+				window.external.ClickEvent_Setting("",XG_RET_SERCH);
+			}
+		},
+       	{
+            text:'在此添加兴趣点',
+            callback:function(p){
+				window.external.ClickEvent_AddPoint(p.lng+ "," +p.lat,XG_RET_ADDPOINT);
+			}
+         },
+		 {
+			text:'设置',			
+			callback:function()
+			{
+				window.external.ClickEvent_Setting("",XG_RET_SETTING);
+				
+			}		
+		 }
+   		 ];
+
+    	for(var i=0; i < txtMenuItem.length; i++){
+        contextMenu.addItem(new BMap.MenuItem(txtMenuItem[i].text, txtMenuItem[i].callback, 100));
+        if(i==1 || i==3) {
+            contextMenu.addSeparator();
+        }
+    }
+
+    map.addContextMenu(contextMenu);
+
+    }
+	//创建地址解析的实例
+	var myGeo = new BMap.Geocoder();
+	//地址解析的函数
+	function fun_search(value_address_1){
+		myGeo.getPoint(value_address_1, function(point){
+		  if (point) {
+			map.centerAndZoom(point, map.getZoom());
+			map.addOverlay(new BMap.Marker(point));
+		  }
+		}, "全国");
+	}
+	
+	//将不需要显示的车辆或罐子删除
+	function ClearBus(data)
+	{
+		var busjson = eval('(' + data + ')'); 
+		var markerid=busjson.Xg_Businfoconfig_BusID;
+		if(Xg_MarkerTable.containsKey(markerid))//判断是否存在，存在则删除，不存在则添加
+		{
+			var marker=Xg_MarkerTable.get(markerid);
+			if(marker!=null)
+			{
+				 map.removeOverlay(marker);
+			}
+		}
+	}
+	//更新标记点
+	function UpdateMarker(data)
+	{
+		var busjson = eval('(' + data + ')'); 
+		var markerid=busjson.Xg_Businfoconfig_BusID;
+		if(Xg_MarkerTable.containsKey(markerid))//判断是否存在，存在则删除，不存在则添加
+		{
+			var marker=Xg_MarkerTable.get(markerid);
+			if(marker!=null)
+			{
+				 map.removeOverlay(marker);
+				 marker = createMarker(busjson);
+				 Xg_MarkerTable.put(markerid,marker);
+			}
+			else 
+			{	
+				createMarker(busjson);
+				Xg_MarkerTable.put(markerid,marker);
+			}
+		}
+		else
+		{
+			var marker = createMarker(busjson);
+			Xg_MarkerTable.put(busjson.Xg_Businfoconfig_BusID,marker);
+		}
+		getaddressbypoint(busjson);
+	}
+	//从webbrowse获取数据
+    function getData(base_data) {
+        var json = eval('(' + base_data + ')');  
+		var marker = createMarker(json);
+		Xg_MarkerTable.put(json.Xg_Businfoconfig_BusID,marker);
+		getaddressbypoint(json);//地址解析
+    }
+	function centerPoint(data)
+	{
+		//var json=eval('(' + data + ')'); 
+		//map.centerAndZoom(new BMap.Point(json.Xg_BaseAdvSetting_Longitude, json.Xg_BaseAdvSetting_Latitude), map.getZoom());
+		var json=eval('(' + data + ')'); 
+		var marker = createMarker_Animation(json);
+		Xg_TempBusTable.push(marker);
+		map.centerAndZoom(new BMap.Point(json.Longitude, json.Latitude), map.getZoom());
+	}
+	function centerBus(data)
+	{
+		var json=eval('(' + data + ')'); 
+		var marker = createPoint(json);
+		Xg_TempBusTable.push(marker);
+		map.centerAndZoom(new BMap.Point(json.Longitude, json.Latitude), map.getZoom());
+	}
+	//清除临时车辆点
+	function clearTempBus()
+	{
+		for(var i=0;i<Xg_TempBusTable.length;i++)
+		{
+			map.removeOverlay(Xg_TempBusTable[i]);
+		}
+		Xg_TempBusTable=[];
+	}
+	//返回当前车辆总数
+	function getCount()
+	{
+		alert(Xg_MarkerTable.size());
+	}
+	//画兴趣点
+	function drawPoints(data)
+	{
+		var json = eval('(' + data + ')');  
+		if(Xg_PointTable.containsKey(json.Xg_MapPoint_ID))
+		{
+			var markerold=Xg_PointTable.get(json.Xg_MapPoint_ID);
+			if(markerold!=null)
+				map.removeOverlay(markerold);
+		}
+		
+		var point = new BMap.Point(json.Xg_MapPoint_Longtitude, json.Xg_MapPoint_Latitude);
+		var iconimg=createIcon("png/position.png");
+		var marker=new	BMap.Marker(point,{icon:iconimg});
+		var label = new BMap.Label(json.Xg_MapPoint_Name, { "offset": new BMap.Size(5 - 6 + 10, -20) });
+        marker.setLabel(label);
+		
+		 
+		 //创建信息窗口
+		var infoWindow1 = createInfoWindow(json,10);
+		marker.addEventListener("click", function(){this.openInfoWindow(infoWindow1);});
+		map.addOverlay(marker);
+		Xg_PointTable.put(json.Xg_MapPoint_ID,marker);
+	}
+	//绘制下一条轨迹前需要先清除前一个轨迹
+	function  StartDrawTrack()
+	{		
+		if(Xg_polyline!=null)
+		{
+			map.removeOverlay(Xg_Current_Track_Bus);
+			map.removeOverlay(Xg_polyline);
+			Xg_Track_Points=[];//清空轨迹点
+			Xg_Track_Poly=[];//清空轨迹线段
+		}
+	}
+	//绘制轨迹回放
+	function  DrawTrackPlay(data)
+	{
+		var json = eval('(' + data + ')');  
+		//alert(json.Latitude+","+json.Longitude);
+		var point=new BMap.Point(json.Longitude, json.Latitude);
+		
+		if(Xg_Track_Points.length==0)//第一个点
+		{
+			Xg_Track_Points.push(point);
+			//Xg_Track_LastPoint=point;	
+			Xg_Current_Track_Bus=createMarker(json);
+			map.centerAndZoom(point, map.getZoom());//绘制车辆
+		}
+		else if(Xg_Track_Points.length>0)
+		{
+			map.removeOverlay(Xg_polyline);//清除之前的轨迹，再画上新的轨迹
+			map.removeOverlay(Xg_Current_Track_Bus);
+			Xg_Current_Track_Bus=createMarker(json);
+			if(!map.getBounds().containsPoint(point))
+				map.centerAndZoom(point, map.getZoom());//绘制车辆,如果车辆超出范围，则重新居中
+			
+			Xg_Track_Points.push(point);
+			Xg_polyline =new BMap.Polyline(Xg_Track_Points);
+			Xg_Track_Poly.push(Xg_polyline);
+			
+			map.addOverlay(Xg_polyline);
+			//Xg_Track_LastPoint=point;
+		}
+		
+	}
+/***************************显示整个轨迹操作**************************************/
+	//从webbrowse获取数据
+    function DrawHeadMarker(base_data) {
+        var json = eval('(' + base_data + ')');  
+		Xg_Head = createMarker(json);
+    }
+	//清楚全部轨迹
+	function ClearAllTrackView()
+	{
+		StartDrawTrack();
+		map.removeOverlay(Xg_Head);
+		map.removeOverlay(Xg_TrackView_line);
+		Xg_TrackView_All_Points=[];//清空轨迹点
+		map.clearOverlays();
+	}
+	//将轨迹点增加到BMap
+	function AddTrackPoints(data)
+	{
+		var json = eval('(' + data + ')');
+		var point=new BMap.Point(json.Longitude, json.Latitude);  
+		Xg_TrackView_All_Points.push(point);
+	}
+	//显示全部轨迹
+	function ShowAllTrack()
+	{
+		Xg_TrackView_line =new BMap.Polyline(Xg_TrackView_All_Points);
+		map.addOverlay(Xg_TrackView_line);
+	}
+/***********************拖动播放进度条时处理***********************************/
+	function addTrackToPoints(data)
+	{
+		var json = eval('(' + data + ')');
+		var point=new BMap.Point(json.Longitude, json.Latitude);  
+		Xg_Track_Points.push(point);
+	}
+	function finishRateDrag()
+	{
+		map.removeOverlay(Xg_polyline);//清除之前的轨迹，再画上新的轨迹
+		map.removeOverlay(Xg_Current_Track_Bus);		
+		
+		Xg_polyline =new BMap.Polyline(Xg_Track_Points);
+		Xg_Track_Poly.push(Xg_polyline);
+		
+		map.addOverlay(Xg_polyline);
+	}
+/******************************************************************************/
+	//根据角度返回图片路径
+	function makeIconPath(angle) {
+		//从负Y轴方向开始顺时针查找角度
+		var adjAngles = [0,22,45,67,90,112,135,157,180,202,225,247,270,292,315,337];
+		adjAngle = angle;
+	
+		var  m=360;//差值，差值的绝对值最小的最靠近
+		var adjIndex = 0;
+		for (var i = 0; i < 16; i++){
+			var n=Math.abs(adjAngle-adjAngles[i]);
+			if(n<m)
+			{
+				adjIndex=i;
+				m=n;
+			}
+		}		
+		var iconpath="smallicon\\"+"arrow_" + adjAngles[adjIndex] + ".png";
+		return iconpath;
+	}
+	/***************返回地址解析结果******************************************/
+	function getaddressbypoint(json)
+	{
+		var gc = new BMap.Geocoder();    
+       
+    	var pt = new BMap.Point(json.Longitude, json.Latitude);
+    	gc.getLocation(pt, function(rs)
+		{
+        	var addComp = rs.addressComponents;
+			var address=addComp.province + ", " + addComp.city + ", " + addComp.district + ", " + addComp.street + ", " + addComp.streetNumber;
+        	var ret=json.Xg_Businfoconfig_BusID+";"+address;
+			//alert(ret);
+			window.external.MapRetAddress(ret,XG_RET_MAPADDRESS);  
+    	});
+	}
+	/***********************************************************************/
+	//创建车辆临时标注点,双击定位时用到
+	function createPoint(json)
+	{
+		var p0 = json.Longitude;//json.point.split("|")[0];
+        var p1 = json.Latitude; //json.point.split("|")[1];
+        var point = new BMap.Point(p0, p1);
+		var marker = new BMap.Marker(point);
+		var label = new BMap.Label(json.Xg_Businfoconfig_BusPla, { "offset": new BMap.Size(5 - 6 + 10, -20) });
+		var iw = createInfoWindow(json,json.Xg_businfoconfig_BusType);
+		label.setStyle({ borderColor: "#0000FF",color: "#0000FF", cursor: "pointer" });
+        marker.setLabel(label);
+        map.addOverlay(marker);
+       //     map.centerAndZoom(point, 15);
+      //      marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        
+		(function () {
+                var _json = json;
+                var _iw = createInfoWindow(_json,json.Xg_businfoconfig_BusType);
+                var _marker = marker;
+                _marker.addEventListener("click", function () {
+					Xg_Current_Bus=_json;
+                    this.openInfoWindow(_iw);
+                });
+                _iw.addEventListener("open", function () {
+                    _marker.getLabel().hide();
+                })
+                _iw.addEventListener("close", function () {
+                    _marker.getLabel().show();
+                })
+                label.addEventListener("click", function () {
+                    _marker.openInfoWindow(_iw);
+                })
+                if (!!json.isOpen) {
+                    label.hide();
+                    _marker.openInfoWindow(_iw);
+                }
+            })()
+		return marker;
+	}
+	//创建车辆点
+	function createMarker(json)
+	{
+		var p0 = json.Longitude;//json.point.split("|")[0];
+        var p1 = json.Latitude; //json.point.split("|")[1];
+        var point = new BMap.Point(p0, p1);
+		var nSel=0;
+		if(json.Xg_businfoconfig_BusType==0)//车辆图标
+		{
+			switch(json.Xg_Businfoconfig_Imgpath)
+			{
+				case "混凝土": nSel=0; break;
+				case "面包车": nSel=1; break;
+				case "物流车": nSel=2; break;
+				case "私家车": nSel=3; break;
+				case "出租车": nSel=4; break;
+				default:
+					nSel=0; break;
+			}
+			var s0 = "png" + "\\" + (nSel + 1) + "_" + "green.png";
+			var s1 = "png" + "\\" + (nSel + 1) + "_" + "off.png";
+			var s2 = "png" + "\\" + (nSel + 1) + "_" + "overspeed.png";
+			var s3 = "png" + "\\" + (nSel + 1) + "_" + "stop.png";
+			var s4 = "png" + "\\" + (nSel + 1) + "_" + "warn.png";
+			
+			//var s0=makeIconPath(json.Angel);
+			var n=getcurrentState();
+			switch(n)
+			{
+				case 0:var iconImg = createIcon(s0);break;
+				case 1:var iconImg = createIcon(s1);break;
+				case 2:var iconImg = createIcon(s2);break;
+				case 3:var iconImg = createIcon(s3);break;
+				case 4:var iconImg = createIcon(s4);break;
+				default:var iconImg = createIcon(s0);break;
+			}
+		}
+		else if(json.Xg_businfoconfig_BusType==1)
+		{
+			var rat=Math.round((json.Weight/45)*100);
+			if(rat>=100)rat=100;
+			var n=parseInt(rat/2);
+			var m=n*2+2;
+			if(rat<json.Xg_businfoconfig_Maxspeed)
+			{
+				var path="plot_red"+"\\"+m+".png";
+			}
+			else if(rat>100)
+			{
+				m=100;
+				var path="plot_red"+"\\"+m+".png";
+			}
+			else var path="plot_blue"+"\\"+m+".png";
+			//alert(path);
+			var iconImg =createIcon(path);
+		}
+		
+		//alert(json.Xg_businfoconfig_BusType);
+		 var marker = new BMap.Marker(point, { icon: iconImg });
+		if(json.Xg_businfoconfig_BusType==0)
+       		 var label = new BMap.Label(json.Xg_Businfoconfig_BusPla, { "offset": new BMap.Size(5 - 6 + 10, -20) });
+		else if(json.Xg_businfoconfig_BusType==1)
+			 var label = new BMap.Label(json.Xg_Businfoconfig_BusOwnCode, { "offset": new BMap.Size(5 - 6 + 10, -20) });
+		label.setStyle({ borderColor: "#0000FF",color: "#0000FF", cursor: "pointer" });
+        marker.setLabel(label);
+             
+       
+		var iw = createInfoWindow(json,json.Xg_businfoconfig_BusType);
+		 (function () {
+			var _json = json;
+			var _iw = createInfoWindow(_json,json.Xg_businfoconfig_BusType);
+			var _marker = marker;
+			_marker.addEventListener("click", function () {
+				Xg_Current_Bus=_json;
+				this.openInfoWindow(_iw);
+			});
+			_iw.addEventListener("open", function () {
+				_marker.getLabel().hide();
+			})
+			_iw.addEventListener("close", function () {
+				_marker.getLabel().show();
+			})
+			label.addEventListener("click", function () {
+				_marker.openInfoWindow(_iw);
+			})
+			if (!!json.isOpen) {
+				label.hide();
+				_marker.openInfoWindow(_iw);
+			}
+		})()
+		 map.addOverlay(marker); 
+       //     map.centerAndZoom(point, 15);
+      //      marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        
+		
+		return marker;
+	} 
+	//创建跳动的marker
+	function createMarker_Animation(json)
+	{
+		var p0 = json.Longitude;//json.point.split("|")[0];
+        var p1 = json.Latitude; //json.point.split("|")[1];
+        var point = new BMap.Point(p0, p1);
+		var nSel=0;
+		if(json.Xg_businfoconfig_BusType==0)//车辆图标
+		{
+			switch(json.Xg_Businfoconfig_Imgpath)
+			{
+				case "混凝土": nSel=0; break;
+				case "面包车": nSel=1; break;
+				case "物流车": nSel=2; break;
+				case "私家车": nSel=3; break;
+				case "出租车": nSel=4; break;
+				default:
+					nSel=0; break;
+			}
+			var s0 = "png" + "\\" + (nSel + 1) + "_" + "green.png";
+			var s1 = "png" + "\\" + (nSel + 1) + "_" + "off.png";
+			var s2 = "png" + "\\" + (nSel + 1) + "_" + "overspeed.png";
+			var s3 = "png" + "\\" + (nSel + 1) + "_" + "stop.png";
+			var s4 = "png" + "\\" + (nSel + 1) + "_" + "warn.png";
+			
+			//var s0=makeIconPath(json.Angel);
+			var n=getcurrentState();
+			switch(n)
+			{
+				case 0:var iconImg = createIcon(s0);break;
+				case 1:var iconImg = createIcon(s1);break;
+				case 2:var iconImg = createIcon(s2);break;
+				case 3:var iconImg = createIcon(s3);break;
+				case 4:var iconImg = createIcon(s4);break;
+				default:var iconImg = createIcon(s0);break;
+			}
+		}
+		else if(json.Xg_businfoconfig_BusType==1)
+		{
+			var rat=Math.round((json.Weight/45)*100);
+			if(rat>=100)rat=100;
+			var n=parseInt(rat/2);
+			var m=n*2+2;
+			if(rat<json.Xg_businfoconfig_Maxspeed)
+			{
+				var path="plot_red"+"\\"+m+".png";
+			}
+			else if(rat>100)
+			{
+				m=100;
+				var path="plot_red"+"\\"+m+".png";
+			}
+			else var path="plot_blue"+"\\"+m+".png";
+			//alert(path);
+			var iconImg =createIcon(path);
+		}
+		
+		
+        
+        var marker = new BMap.Marker(point, { icon: iconImg });
+		
+        var iw = createInfoWindow(json,json.Xg_businfoconfig_BusType);
+		//alert(json.Xg_businfoconfig_BusType);
+		if(json.Xg_businfoconfig_BusType==0)
+       		 var label = new BMap.Label(json.Xg_Businfoconfig_BusPla, { "offset": new BMap.Size(5 - 6 + 10, -20) });
+		else if(json.Xg_businfoconfig_BusType==1)
+			 var label = new BMap.Label(json.Xg_Businfoconfig_BusOwnCode, { "offset": new BMap.Size(5 - 6 + 10, -20) });
+		label.setStyle({ borderColor: "#0000FF",color: "#0000FF", cursor: "pointer" });
+        marker.setLabel(label);
+        map.addOverlay(marker);
+       //     map.centerAndZoom(point, 15);
+        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+        
+		(function () {
+                var _json = json;
+                var _iw = createInfoWindow(_json,json.Xg_businfoconfig_BusType);
+                var _marker = marker;
+                _marker.addEventListener("click", function () {
+					Xg_Current_Bus=_json;
+                    this.openInfoWindow(_iw);
+                });
+                _iw.addEventListener("open", function () {
+                    _marker.getLabel().hide();
+                })
+                _iw.addEventListener("close", function () {
+                    _marker.getLabel().show();
+                })
+                label.addEventListener("click", function () {
+                    _marker.openInfoWindow(_iw);
+                })
+                if (!!json.isOpen) {
+                    label.hide();
+                    _marker.openInfoWindow(_iw);
+                }
+            })()
+		return marker;
+	} 
+	function getcurrentState()
+	{
+		return 0;
+	} 
+	
+    
+    //创建InfoWindow	
+    function createInfoWindow(json,id) {
+		if(id==0){//车辆infowindow
+			var opts = {title : "<span style='font-size:14px;color:#0000FF';align='center'>"+json.Xg_Businfoconfig_BusPla+"</span>"};
+        	var iw = new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'>"+
+			"<b>车牌号:</b>"+json.Xg_Businfoconfig_BusPla+"</br>"+
+			"<b>自编号:</b>"+json.Xg_Businfoconfig_BusOwnCode+"</br>"+
+			"<b>信息时间:</b>"+json.datetime+"</br>"+
+			"<b>位置:</b>"+json.Longitude+','+json.Latitude+"</br>"+
+			"<b>速度:</b>"+json.Speed+"</br>"+
+			"<b>油耗:</b>"+json.Oilcost+"</br>"+
+			"<a style='text-decoration:none;color:#2679BA;float:right' onclick='showtrack()'>查看轨迹>></a>"+
+			"<a style='text-decoration:none;color:#2679BA;float:right' onclick='showvedio()'>预览视频>></a>"+
+			"<a style='text-decoration:none;color:#2679BA;float:right' onclick='showvedio_detail()'>查看视频>></a>"+
+			"</div>",opts);
+			return iw;
+		}
+		else if(id==1)
+		{
+			var opts = {title : "<span style='font-size:14px;color:#0000FF';align='center'>"+json.Xg_Businfoconfig_BusOwnCode+"</span>"};
+       		var iw = new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'>"+
+			"<b>信息时间:</b>"+json.datetime+"</br>"+
+			"<b>位置:</b>"+json.Longitude+','+json.Latitude+"</br>"+
+			"<b>砂浆类型:</b>"+json.Xg_Businfoconfig_BusPla+"</br>"+
+			"<b>重量:</b>"+json.Weight+"</br>"+
+			"<b>比例:</b>"+((json.Weight/45)*100).toFixed(2)+"%"+"</br>"+
+			"</div>",opts);
+			return iw;
+		}
+		else if(id==10)//兴趣点infowindow
+		{
+			var opts = {title : "<span style='font-size:14px;color:#0000FF';align='center'>"+json.Xg_MapPoint_Name+"</span>"};
+       		var iw = new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'>"+
+			"<b>名称:</b>"+json.Xg_MapPoint_Name+"</br>"+
+			"<b>位置:</b>"+json.Xg_MapPoint_Longtitude+','+json.Xg_MapPoint_Latitude+"</br>"+
+			"<b>类型:</b>"+json.Xg_MapPoint_Type+"</br>"+
+			"<b>范围:</b>"+json.Xg_MapPoint_Area+"</br>"+
+			"<b>报警号:</b>"+json.Xg_MapPointAlmID+
+			"</div>",opts);
+			return iw;
+		}	
+    }
+	function createVedioWindow(json)
+	{
+		var opts = {title : "<span style='font-size:14px;color:#0000FF';align='center'>"+
+		json.Xg_Businfoconfig_BusPla+' ,   '+json.Xg_Businfoconfig_BusOwnCode+"</span>"};
+		var iw = new BMap.InfoWindow("<div style='line-height:1.8em;font-size:12px;'>"+
+		"<object classid='clsid:EE4EA829-B8DA-4229-AC72-585AF45AD778'  id='PlayOCX' width='300' height='225'  name='RealPlayOCX' align='center'>"+	            "</object>"+
+		"</div>",opts);
+		return iw;
+	}
+	function showvedio_detail()
+	{
+		window.external.ClickEvent_Setting(Xg_Current_Bus.Xg_Businfoconfig_BusID,XG_RET_OPENVEDIO );	
+	}
+	function showvedio()
+	{		
+		var markerid=Xg_Current_Bus.Xg_Businfoconfig_BusID;
+		Xg_bVeidoShowing=true;
+		var _iw = createVedioWindow(Xg_Current_Bus);
+		if(Xg_MarkerTable.containsKey(markerid))//判断是否存在，存在则删除，不存在则添加
+		{
+			var _marker=Xg_MarkerTable.get(markerid);
+			 var label = new BMap.Label(Xg_Current_Bus.Xg_Businfoconfig_BusPla, { "offset": new BMap.Size(5 - 6 + 10, -20) });
+			if(_marker!=null)
+			{
+				  _marker.addEventListener("click", function () {
+                    this.openInfoWindow(_iw);
+                });
+                
+                _iw.addEventListener("close", function () {
+					 var PlayOCX = document.getElementById("PlayOCX");
+					 PlayOCX.StreamPlayStop(0);
+                    _marker.getLabel().show();					
+					//Xg_bVeidoShowing=false;
+					
+                })
+				 _iw.addEventListener("open", function () {
+                    _marker.getLabel().hide();
+                })
+               
+                label.addEventListener("click", function () {
+                    _marker.openInfoWindow(_iw);
+                })
+                if (!!Xg_Current_Bus.isOpen) {
+                    label.hide();
+                    _marker.openInfoWindow(_iw);
+                }
+			}
+			_marker.openInfoWindow(_iw);
+		}
+		//
+		for(var i=0;i<Xg_Current_Bus.Xg_deviceconfig_CamIDList.length;i++)
+		{
+			var c=Xg_Current_Bus.Xg_deviceconfig_CamIDList[i];
+			StreamPlay(c.CamSN,c.CamIP,c.CamPort,"admin","12345");
+		}	
+		
+	}
+	function StreamPlay(sn,ip,port,user,pass)
+	{
+		var PlayOCX = document.getElementById("PlayOCX");
+		var iRet=PlayOCX.ConnectDeviceByACS(sn, ip, port, user, pass);
+		PlayOCX.SetDeviceNetLine(1);
+		if(iRet>=0)
+		{
+		    PlayOCX.StreamPlayStartByTCP(ip, 7554,sn,1,1,1);
+		}
+	}
+	function showtrack()
+	{
+		window.external.ClickEvent_Setting(Xg_Current_Bus.Xg_Businfoconfig_BusID,XG_RET_SHOWTRACK);
+	}
+    function createIcon(img) {
+        var icon = new BMap.Icon(img, new BMap.Size(32, 47),
+		 { imageOffset: new BMap.Size(-0, -0), 
+		 infoWindowAnchor: new BMap.Size(5 + 5, 1), 
+		 offset: new BMap.Size(6, 33) })
+        return icon;
+    }
+</script>
+</html>
+

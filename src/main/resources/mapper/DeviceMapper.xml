@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.springmvc.dao.DeviceDao">
+    <resultMap type="Device" id="deviceResultMap">
+        <id property="did" column="id"/>
+        <result property="type" column="type"/>
+        <result property="devId" column="dev_id"/>
+        <result property="nickName" column="nick_name"/>
+        <result property="sn" column="sn"/>
+        <result property="product" column="product"/>
+        <result property="model" column="model"/>
+        <result property="creationDate" column="creation_date"/>
+        <result property="companyId" column="company_id"/>
+        <result property="simCardNum" column="sim_card_num"/>
+        <result property="dateCost" column="data_cost"/>
+        <result property="lastModifiedDate" column="last_modified_date"/>
+        <result property="keyValue" column="key_value"/>
+        <result property="threshold" column="threshold"/>
+        <result property="remark" column="remark"/>
+        <result property="tankType" column="tank_type"/>
+    </resultMap>
+    <select id="getDeviceById" parameterType="Integer" resultMap="deviceResultMap">
+        select * from device where  id = #{id}
+    </select>
+
+    <select id="getDeviceListByCompanyId" parameterType="Integer" resultMap="deviceResultMap">
+        select * from device where  company_id = #{companyId} and type = #{type}
+    </select>
+
+    <insert id="insertDevice" parameterType="Device" useGeneratedKeys="true" keyProperty="id">
+        insert into device
+        (type,dev_id,nick_name,sn,product,model,creation_date,company_id,sim_card_num)
+        values
+        (#{type},#{devId},#{nickName},#{sn},#{product},#{model},sysdate(),#{companyId},#{simCardNum})
+    </insert>
+
+    <update id="updateDevice" parameterType="Device">
+        update device
+        <set>
+            <if test="type != null">type = #{type},</if>
+            <if test="devId != null and devId != ''">dev_id = #{devId},</if>
+            <if test="nickName !=null and nickName != ''">nick_name = #{text},</if>
+            <if test="sn != null and sn != ''">sn = #{sn},</if>
+            <if test="product != null and product != ''">product = #{product},</if>
+            <if test="model != null and model != ''">model = #{model},</if>
+            <if test="companyId != null and companyId != ''">company_id = #{companyId},</if>
+            <if test="simCardNum != null and simCardNum != ''">sim_card_num = #{simCardNum},</if>
+            <if test="dateCost != null and dateCost != ''">data_cost = #{dateCost},</if>
+            <if test="lastModifiedDate != null and lastModifiedDate != ''">last_modified_date = #{lastModifiedDate},</if>
+            <if test="keyValue != null and keyValue != ''">key_value = #{keyValue},</if>
+            <if test="threshold != null and threshold != ''">threshold = #{threshold},</if>
+            <if test="remark != null and remark != ''">remark = #{remark},</if>
+            <if test="tankType != null and tankType != ''">tank_type = #{tankType}</if>
+        </set>
+        <where>
+            id = #{did}
+        </where>
+    </update>
+
+    <delete id="deleteDeviceById" parameterType="Integer">
+        delete from device where id = #{id}
+    </delete>
+
+    <delete id="deleteDeviceByCompanyId" parameterType="Integer">
+        delete from node_group where company_id = #{companyId}
+    </delete>
+
+    <select id="getDeviceCountByCompanyId" parameterType="Integer" resultType="Integer">
+        SELECT count(1) FROM device where company_id = #{companyId}
+    </select>
+
+    <select id="getDeviceListByIds" parameterType="Integer" resultMap="deviceResultMap">
+        SELECT * FROM device WHERE id in
+        <foreach collection="ids" item="item" index="index" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getIdByDeviceId" parameterType="String" resultType="Integer">
+        SELECT id FROM device where dev_id = #{devId}
+    </select>
+
+
+    <select id="getDeviceWithTankTypeByCompanyId" parameterType="Integer" resultMap="deviceResultMap">
+        SELECT * FROM device GROUP BY tankType
+    </select>
+</mapper>

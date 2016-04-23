@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+        <!-- 命名空间 -->
+    <typeAliases>
+        <typeAlias type="cn.springmvc.model.NodeGroup" alias="NodeGroup"/>
+        <typeAlias type="cn.springmvc.model.Company" alias="Company"/>
+        <typeAlias type="cn.springmvc.model.Device" alias="Device"/>
+        <typeAlias type="cn.springmvc.model.DeviceRealData" alias="DeviceRealData"/>
+        <typeAlias type="cn.springmvc.model.RCompanyNode" alias="RCompanyNode"/>
+        <typeAlias type="cn.springmvc.model.User" alias="User"/>
+        <typeAlias type="cn.springmvc.model.UserGroup" alias="UserGroup"/>
+    </typeAliases>
+
+    <!-- 映射map -->
+    <mappers>
+        <mapper resource="/mapper/NodeGroupMapper.xml"/>
+        <mapper resource="/mapper/CompanyMapper.xml"/>
+        <mapper resource="/mapper/DeviceMapper.xml"/>
+        <mapper resource="/mapper/DeviceRealDataMapper.xml"/>
+        <mapper resource="/mapper/RCompanyNodeMapper.xml"/>
+        <mapper resource="/mapper/UserMapper.xml"/>
+        <mapper resource="/mapper/UserGroupMapper.xml"/>
+    </mappers>
+</configuration>
