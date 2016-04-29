@@ -5,13 +5,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 <configuration>
         <!-- 命名空间 -->
     <typeAliases>
-        <typeAlias type="cn.springmvc.model.NodeGroup" alias="NodeGroup"/>
-        <typeAlias type="cn.springmvc.model.Company" alias="Company"/>
-        <typeAlias type="cn.springmvc.model.Device" alias="Device"/>
-        <typeAlias type="cn.springmvc.model.DeviceRealData" alias="DeviceRealData"/>
-        <typeAlias type="cn.springmvc.model.RCompanyNode" alias="RCompanyNode"/>
-        <typeAlias type="cn.springmvc.model.User" alias="User"/>
-        <typeAlias type="cn.springmvc.model.UserGroup" alias="UserGroup"/>
+        <typeAlias type="com.omiphane.model.NodeGroup" alias="NodeGroup"/>
+        <typeAlias type="com.omiphane.model.Company" alias="Company"/>
+        <typeAlias type="com.omiphane.model.Device" alias="Device"/>
+        <typeAlias type="com.omiphane.model.DeviceRealData" alias="DeviceRealData"/>
+        <typeAlias type="com.omiphane.model.RCompanyNode" alias="RCompanyNode"/>
+        <typeAlias type="com.omiphane.model.User" alias="User"/>
+        <typeAlias type="com.omiphane.model.UserGroup" alias="UserGroup"/>
     </typeAliases>
 
     <!-- 映射map -->

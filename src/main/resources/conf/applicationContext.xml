@@ -50,7 +50,7 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-    <bean name="deviceDataMapping" class="cn.springmvc.utilities.DeviceDataMapping">
+    <bean name="deviceDataMapping" class="com.omiphane.utilities.DeviceDataMapping">
 
     </bean>
 

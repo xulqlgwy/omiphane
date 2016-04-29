@@ -44,7 +44,7 @@
     </listener>
 
     <listener>
-        <listener-class>cn.springmvc.socket.SocketServer</listener-class>
+        <listener-class>com.omiphane.socket.SocketServer</listener-class>
     </listener>
 
     <filter>
@@ -76,7 +76,7 @@
 
     <!--<filter>-->
         <!--<filter-name>loginFilter</filter-name>-->
-        <!--<filter-class>cn.springmvc.fliter.LoginFliter</filter-class>-->
+        <!--<filter-class>LoginFliter</filter-class>-->
     <!--</filter>-->
     <!--<filter-mapping>-->
         <!--<filter-name>loginFilter</filter-name>-->
