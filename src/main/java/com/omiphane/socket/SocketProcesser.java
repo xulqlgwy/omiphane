@@ -46,8 +46,8 @@ public class SocketProcesser {
 
         if(deviceNetInfo == null){
             ApplicationContext beans = WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext);
-            deviceNetInfo = (NetProcessService)beans.getBean("deviceNetInfo");
-            deviceNetInfo.setDecoder(decoder);
+//            deviceNetInfo = (NetProcessService)beans.getBean("deviceNetInfo");
+//            deviceNetInfo.setDecoder(decoder);
         }
     }
 

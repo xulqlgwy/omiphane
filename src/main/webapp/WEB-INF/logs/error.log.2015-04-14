@@ -1,8 +1,8 @@
 2015-04-14 22:47:40 [ main:1831 ] - [ ERROR ] Context initialization failed
 org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping#0': Invocation of init method failed; nested exception is java.lang.IllegalStateException: Ambiguous mapping found. Cannot map 'areaManageController' bean method 
-public java.util.Map<java.lang.String, java.lang.Object> cn.springmvc.controller.AreaManageController.queryRooms(cn.springmvc.vo.QueryConditionVO,org.springframework.validation.BindingResult,java.lang.String,int,int,javax.servlet.http.HttpSession)
+public java.util.Map<java.lang.String, java.lang.Object> cn.springmvc.controller.AreaManageController.queryRooms(QueryConditionVO,org.springframework.validation.BindingResult,java.lang.String,int,int,javax.servlet.http.HttpSession)
 to {[/area/getRoomTable],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}: There is already 'airConditionController' bean method
-public java.util.Map<java.lang.String, java.lang.Object> cn.springmvc.controller.AirConditionController.queryRooms(cn.springmvc.vo.QueryConditionVO,org.springframework.validation.BindingResult,java.lang.String,int,int,javax.servlet.http.HttpSession) mapped.
+public java.util.Map<java.lang.String, java.lang.Object> cn.springmvc.controller.AirConditionController.queryRooms(QueryConditionVO,org.springframework.validation.BindingResult,java.lang.String,int,int,javax.servlet.http.HttpSession) mapped.
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.initializeBean(AbstractAutowireCapableBeanFactory.java:1482)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:521)
 	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:458)
@@ -71,9 +71,9 @@ public java.util.Map<java.lang.String, java.lang.Object> cn.springmvc.controller
 	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:356)
 	at org.codehaus.classworlds.Launcher.main(Launcher.java:46)
 Caused by: java.lang.IllegalStateException: Ambiguous mapping found. Cannot map 'areaManageController' bean method 
-public java.util.Map<java.lang.String, java.lang.Object> cn.springmvc.controller.AreaManageController.queryRooms(cn.springmvc.vo.QueryConditionVO,org.springframework.validation.BindingResult,java.lang.String,int,int,javax.servlet.http.HttpSession)
+public java.util.Map<java.lang.String, java.lang.Object> cn.springmvc.controller.AreaManageController.queryRooms(QueryConditionVO,org.springframework.validation.BindingResult,java.lang.String,int,int,javax.servlet.http.HttpSession)
 to {[/area/getRoomTable],methods=[],params=[],headers=[],consumes=[],produces=[],custom=[]}: There is already 'airConditionController' bean method
-public java.util.Map<java.lang.String, java.lang.Object> cn.springmvc.controller.AirConditionController.queryRooms(cn.springmvc.vo.QueryConditionVO,org.springframework.validation.BindingResult,java.lang.String,int,int,javax.servlet.http.HttpSession) mapped.
+public java.util.Map<java.lang.String, java.lang.Object> cn.springmvc.controller.AirConditionController.queryRooms(QueryConditionVO,org.springframework.validation.BindingResult,java.lang.String,int,int,javax.servlet.http.HttpSession) mapped.
 	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.registerHandlerMethod(AbstractHandlerMethodMapping.java:172)
 	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.detectHandlerMethods(AbstractHandlerMethodMapping.java:146)
 	at org.springframework.web.servlet.handler.AbstractHandlerMethodMapping.initHandlerMethods(AbstractHandlerMethodMapping.java:108)
