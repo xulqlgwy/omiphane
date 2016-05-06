@@ -1,13 +1,16 @@
 package com.omiphane.controller;
 
 import com.omiphane.generator.dao.UserMapper;
+import com.omiphane.generator.model.Node;
 import com.omiphane.generator.model.User;
 import com.omiphane.generator.model.UserExample;
+import com.omiphane.service.NodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,16 +29,22 @@ public class NodeGroupController extends BaseController{
     @Autowired
     private UserMapper userMapper;
 
+    @Autowired
+    private NodeService nodeService;
 
-//    @RequestMapping("/get/nodeGroupList")
-//    public
-//    @ResponseBody
-//    ModelAndView showNodeGroupList(ModelMap modelMap,HttpServletRequest request){
-//        String userId = request.getParameter("UserId");
-//        List<NodeGroup> nodeGroups = nodeGroupService.getNodeGroupListByUserId(Integer.valueOf(userId));
-//        modelMap.put("NODES",nodeGroups);
-//        return new ModelAndView(ROOM_MANAGE);
-//    }
+
+    @RequestMapping("/get/nodeGroupList")
+    public
+    @ResponseBody
+    ModelAndView showNodeGroupList(ModelMap modelMap,HttpServletRequest request){
+        String nodeId = request.getParameter("node_id");
+        if (StringUtils.isEmpty(nodeId)){
+            return null;
+        }
+        List<Node> nodes = nodeService.getNodeListByNodeId(Integer.valueOf(nodeId));
+        modelMap.put("nodelist",nodes);
+        return new ModelAndView(ROOM_MANAGE, modelMap);
+    }
 
     private  void   testA(){
         UserExample userExample = new UserExample();

@@ -4,10 +4,13 @@ import com.omiphane.dao.CompanyDao;
 import com.omiphane.dao.DeviceDao;
 import com.omiphane.dao.DeviceRealDataDao;
 import com.omiphane.dao.NodeGroupDao;
+import com.omiphane.generator.dao.NodeMapper;
+import com.omiphane.generator.model.Node;
+import com.omiphane.generator.model.NodeExample;
 import com.omiphane.model.Company;
 import com.omiphane.model.DeviceRealData;
 import com.omiphane.model.NodeGroup;
-import com.omiphane.service.NodeGroupService;
+import com.omiphane.service.NodeService;
 import com.omiphane.utilities.PageConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,7 +23,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class NodeGroupImpl implements NodeGroupService{
+public class NodeGroupImpl implements NodeService {
 
 	@Autowired
 	private NodeGroupDao nodeGroupDao;
@@ -33,11 +36,23 @@ public class NodeGroupImpl implements NodeGroupService{
 
 	@Autowired
 	private DeviceRealDataDao deviceRealDataDao;
+
+	@Autowired
+	private NodeMapper nodeMapper ;
 	
 	@Override
 	public int insertNodeGroup(NodeGroup nodeGroup) {
 		// TODO Auto-generated method stub
 		return nodeGroupDao.insertNodeGroup(nodeGroup);
+	}
+
+
+	@Override
+	public List<Node> getNodeListByNodeId(Integer nodeId){
+		NodeExample nodeExample = new NodeExample();
+		nodeExample.createCriteria().andIdEqualTo(nodeId);
+
+		return  nodeMapper.selectByExample(nodeExample);
 	}
 
 	@Override

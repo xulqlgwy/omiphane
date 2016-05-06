@@ -1,5 +1,6 @@
 package com.omiphane.service;
 
+import com.omiphane.generator.model.Node;
 import com.omiphane.model.Company;
 import com.omiphane.model.DeviceRealData;
 import com.omiphane.model.NodeGroup;
@@ -7,9 +8,11 @@ import com.omiphane.model.NodeGroup;
 import java.util.List;
 
 
-public interface NodeGroupService {
+public interface NodeService {
 
 	public int insertNodeGroup(NodeGroup nodeGroup);
+
+	public List<Node> getNodeListByNodeId(Integer nodeId);
 
 	public List<Object> getNodeGroupListByUserId(Integer userId ,Integer id);
 

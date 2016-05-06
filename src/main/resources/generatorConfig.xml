@@ -11,7 +11,7 @@
     <context id="DB2Tables" targetRuntime="MyBatis3">
         <!--去除注释  -->
         <commentGenerator>
-            <property name="suppressAllComments" value="true" />
+            <property name="suppressDate" value="true" />
         </commentGenerator>
 
         <!--数据库连接 -->
@@ -47,7 +47,11 @@
 
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等-->
         <table tableName="user" domainObjectName="User" />
-
-
+        <table tableName="device" domainObjectName="Device" />
+        <table tableName="device_data" domainObjectName="DeviceData" />
+        <table tableName="enum_define" domainObjectName="enumDefine" />
+        <table tableName="node" domainObjectName="Node" />
+        <table tableName="role_permission" domainObjectName="RolePermission" />
+        <table tableName="user_role" domainObjectName="UserRole" />
     </context>
 </generatorConfiguration>
