@@ -56,6 +56,13 @@ public class NodeGroupImpl implements NodeService {
 	}
 
 	@Override
+	public List<Node> getChildrenNodeByParentId(Integer parentId) {
+		NodeExample nodeExample = new NodeExample();
+		nodeExample.createCriteria().andParentIdEqualTo(parentId);
+		return nodeMapper.selectByExample(nodeExample);
+	}
+
+	@Override
 	public List<Object> getNodeGroupListByUserId(Integer userId ,Integer id) {
 		List<Object> objects = new ArrayList<Object>();
 		List<NodeGroup> nodeGroups = nodeGroupDao.getChildrenNodesById(id, userId);

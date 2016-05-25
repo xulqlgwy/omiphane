@@ -14,6 +14,8 @@ public interface NodeService {
 
 	public List<Node> getNodeListByNodeId(Integer nodeId);
 
+	public List<Node> getChildrenNodeByParentId(Integer parentId);
+
 	public List<Object> getNodeGroupListByUserId(Integer userId ,Integer id);
 
 	public List<NodeGroup> getEntireTree(Integer userId,Integer id);

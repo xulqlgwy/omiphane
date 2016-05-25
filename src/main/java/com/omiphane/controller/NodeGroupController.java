@@ -4,6 +4,7 @@ import com.omiphane.generator.dao.UserMapper;
 import com.omiphane.generator.model.Node;
 import com.omiphane.generator.model.User;
 import com.omiphane.generator.model.UserExample;
+import com.omiphane.model.DeviceRealData;
 import com.omiphane.service.NodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
@@ -60,47 +63,40 @@ public class NodeGroupController extends BaseController{
         testA();
         return new ModelAndView(AREA_MAIN_VIEW);
     }
-//
-//    @RequestMapping("/get/deviceList")
-//    public
-//    @ResponseBody
-//    Map<String, Object> getDeviceList(ModelMap modelMap,HttpServletRequest request){
-//        String s = request.getParameter("extraParam");
-//        Map<String, Object> returnMap = new HashMap<String, Object>();
-//        if(!StringUtils.isEmpty(s)){
+
+
+
+
+    @RequestMapping("/get/deviceList")
+    public
+    @ResponseBody
+    Map<String, Object> getDeviceList(ModelMap modelMap,HttpServletRequest request){
+        String s = request.getParameter("extraParam");
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        if(!StringUtils.isEmpty(s)){
 //            List<DeviceRealData> devices = deviceService.getDeiceListByIds(s);
 //            returnMap.put("devices",devices);
-//        }
-//        return  returnMap;
-//    }
-//    @RequestMapping("/get/deviceTree")
-//    public
-//    @ResponseBody
-//    Map<String, Object> getDeviceTree(ModelMap modelMap,HttpServletRequest request){
-//        Map<String, Object> returnMap = new HashMap<String, Object>();
-//        String strId = request.getParameter("node");
-//        if (StringUtils.isEmpty(strId)){
-//            return null;
-//        }
-//
-//        List<Object> nodeGroups = new ArrayList<Object>();
-//        if (strId.equals(PageConstant.ROOT_NODE)){
-//            nodeGroups = nodeGroupService.getNodeGroupListByUserId(1,Integer.valueOf(PageConstant.ROOT_NODE));
-//        }else {
-//            if (PageConstant.getNodeType(strId).equals(PageConstant.NODE_GROUP)){
-//                nodeGroups = nodeGroupService.getNodeGroupListByUserId(1,PageConstant.getNodeId(strId));
-//            }else if (PageConstant.getNodeType(strId).equals(PageConstant.NODE_COMPANY)){
-//                nodeGroups = companyService.getCatelogByCompanyId(PageConstant.getNodeId(strId),1);
-//            }else if (PageConstant.getNodeType(strId).equals(PageConstant.NODE_TANK)){
-//                nodeGroups = companyService.getDeviceByCompanyId(PageConstant.getNodeId(strId),1);
-//            }else if ( PageConstant.getNodeType(strId).equals(PageConstant.NODE_BUS)){
-//                nodeGroups = companyService.getDeviceByCompanyId(PageConstant.getNodeId(strId),2);
-//            }
-//        }
-//        returnMap.put("deviceTree", nodeGroups);
+        }
+        return  returnMap;
+    }
+
+
+    @RequestMapping("/get/deviceTree")
+    public
+    @ResponseBody
+    Map<String, Object> getDeviceTree(ModelMap modelMap,HttpServletRequest request){
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        String strId = request.getParameter("node");
+        if (StringUtils.isEmpty(strId)){
+            return null;
+        }
+
+        List<Node> nodes = nodeService.getChildrenNodeByParentId(Integer.valueOf(strId));
+
+        returnMap.put("deviceTree", nodes);
 //        logger.warn(deviceDataMapping.toString());
-//        return  returnMap;
-//    }
+        return  returnMap;
+    }
 //    /**
 //     *   暂时不用
 //     */

@@ -5,6 +5,7 @@ Ext.define('Pandora.store.DeviceTreeStore', {
 
     autoLoad: true,
     clearOnLoad : true,
+    rootVisible : false,
 
 
     proxy: {

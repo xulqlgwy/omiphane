@@ -14,6 +14,7 @@
     ##jQuery 1.11.2
     ##toastr
     <link rel="stylesheet" type="text/css" href="${rc.contextPath}/media/extjs/resources/css/ext-all.css" />
+    <link rel="stylesheet" type="text/css" href="${rc.contextPath}/media/css/omiphane.css">
     <script type="text/javascript" src="${rc.contextPath}/media/app/jquery.js"></script>
 ##    <script type="text/javascript" src="${rc.contextPath}/media/extjs/ext.js"></script>
     <script type="text/javascript" src="${rc.contextPath}/media/extjs/ext-all-debug.js"></script>
@@ -29,6 +30,7 @@
     <script type="text/javascript" src="${rc.contextPath}/media/app/utils/datetime/UX_DateTimePicker.js"></script>
     <script type="text/javascript" src="${rc.contextPath}/media/app/utils/datetime/UX_DateTimeMenu.js"></script>
     <script type="text/javascript" src="${rc.contextPath}/media/app/utils/datetime/UX_DateTimeField.js"></script>
+
 </head>
 
 <body class="page-header-fixed page-sidebar-fixed">

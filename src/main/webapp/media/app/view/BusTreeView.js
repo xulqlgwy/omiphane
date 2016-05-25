@@ -60,6 +60,7 @@ Ext.define('Pandora.view.BusTreeView',{
     rootVisible : false,
 
     listeners : {
+
         'checkchange': function(node, state) {
             setChildChecked(node,state);
             setParentChecked(node,state);
@@ -67,7 +68,9 @@ Ext.define('Pandora.view.BusTreeView',{
             var groups = this.getChecked();
             busIds = "";
             groups.forEach(function(group){
+
                 if(group.get('id') != '0'){
+
                     if(getNodeType(group.get('id')) == "node_device"){
                         var nodeId = getNodeId(group.get('id'));
                         busIds += nodeId + "," ;
@@ -92,6 +95,7 @@ Ext.define('Pandora.view.BusTreeView',{
 
 
     initComponent:function(){
+
         this.callParent();
     }
 });

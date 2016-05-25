@@ -314,343 +314,413 @@ public class NodeExample {
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameIsNull() {
-            addCriterion("node_name is null");
+        public Criteria andTextIsNull() {
+            addCriterion("text is null");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameIsNotNull() {
-            addCriterion("node_name is not null");
+        public Criteria andTextIsNotNull() {
+            addCriterion("text is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameEqualTo(String value) {
-            addCriterion("node_name =", value, "nodeName");
+        public Criteria andTextEqualTo(String value) {
+            addCriterion("text =", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameNotEqualTo(String value) {
-            addCriterion("node_name <>", value, "nodeName");
+        public Criteria andTextNotEqualTo(String value) {
+            addCriterion("text <>", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameGreaterThan(String value) {
-            addCriterion("node_name >", value, "nodeName");
+        public Criteria andTextGreaterThan(String value) {
+            addCriterion("text >", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameGreaterThanOrEqualTo(String value) {
-            addCriterion("node_name >=", value, "nodeName");
+        public Criteria andTextGreaterThanOrEqualTo(String value) {
+            addCriterion("text >=", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameLessThan(String value) {
-            addCriterion("node_name <", value, "nodeName");
+        public Criteria andTextLessThan(String value) {
+            addCriterion("text <", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameLessThanOrEqualTo(String value) {
-            addCriterion("node_name <=", value, "nodeName");
+        public Criteria andTextLessThanOrEqualTo(String value) {
+            addCriterion("text <=", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameLike(String value) {
-            addCriterion("node_name like", value, "nodeName");
+        public Criteria andTextLike(String value) {
+            addCriterion("text like", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameNotLike(String value) {
-            addCriterion("node_name not like", value, "nodeName");
+        public Criteria andTextNotLike(String value) {
+            addCriterion("text not like", value, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameIn(List<String> values) {
-            addCriterion("node_name in", values, "nodeName");
+        public Criteria andTextIn(List<String> values) {
+            addCriterion("text in", values, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameNotIn(List<String> values) {
-            addCriterion("node_name not in", values, "nodeName");
+        public Criteria andTextNotIn(List<String> values) {
+            addCriterion("text not in", values, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameBetween(String value1, String value2) {
-            addCriterion("node_name between", value1, value2, "nodeName");
+        public Criteria andTextBetween(String value1, String value2) {
+            addCriterion("text between", value1, value2, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeNameNotBetween(String value1, String value2) {
-            addCriterion("node_name not between", value1, value2, "nodeName");
+        public Criteria andTextNotBetween(String value1, String value2) {
+            addCriterion("text not between", value1, value2, "text");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeIsNull() {
-            addCriterion("node_type is null");
+        public Criteria andLeafIsNull() {
+            addCriterion("leaf is null");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeIsNotNull() {
-            addCriterion("node_type is not null");
+        public Criteria andLeafIsNotNull() {
+            addCriterion("leaf is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeEqualTo(Integer value) {
-            addCriterion("node_type =", value, "nodeType");
+        public Criteria andLeafEqualTo(String value) {
+            addCriterion("leaf =", value, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeNotEqualTo(Integer value) {
-            addCriterion("node_type <>", value, "nodeType");
+        public Criteria andLeafNotEqualTo(String value) {
+            addCriterion("leaf <>", value, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeGreaterThan(Integer value) {
-            addCriterion("node_type >", value, "nodeType");
+        public Criteria andLeafGreaterThan(String value) {
+            addCriterion("leaf >", value, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("node_type >=", value, "nodeType");
+        public Criteria andLeafGreaterThanOrEqualTo(String value) {
+            addCriterion("leaf >=", value, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeLessThan(Integer value) {
-            addCriterion("node_type <", value, "nodeType");
+        public Criteria andLeafLessThan(String value) {
+            addCriterion("leaf <", value, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeLessThanOrEqualTo(Integer value) {
-            addCriterion("node_type <=", value, "nodeType");
+        public Criteria andLeafLessThanOrEqualTo(String value) {
+            addCriterion("leaf <=", value, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeIn(List<Integer> values) {
-            addCriterion("node_type in", values, "nodeType");
+        public Criteria andLeafLike(String value) {
+            addCriterion("leaf like", value, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeNotIn(List<Integer> values) {
-            addCriterion("node_type not in", values, "nodeType");
+        public Criteria andLeafNotLike(String value) {
+            addCriterion("leaf not like", value, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeBetween(Integer value1, Integer value2) {
-            addCriterion("node_type between", value1, value2, "nodeType");
+        public Criteria andLeafIn(List<String> values) {
+            addCriterion("leaf in", values, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeTypeNotBetween(Integer value1, Integer value2) {
-            addCriterion("node_type not between", value1, value2, "nodeType");
+        public Criteria andLeafNotIn(List<String> values) {
+            addCriterion("leaf not in", values, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerIsNull() {
-            addCriterion("node_layer is null");
+        public Criteria andLeafBetween(String value1, String value2) {
+            addCriterion("leaf between", value1, value2, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerIsNotNull() {
-            addCriterion("node_layer is not null");
+        public Criteria andLeafNotBetween(String value1, String value2) {
+            addCriterion("leaf not between", value1, value2, "leaf");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerEqualTo(String value) {
-            addCriterion("node_layer =", value, "nodeLayer");
+        public Criteria andClsIsNull() {
+            addCriterion("cls is null");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerNotEqualTo(String value) {
-            addCriterion("node_layer <>", value, "nodeLayer");
+        public Criteria andClsIsNotNull() {
+            addCriterion("cls is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerGreaterThan(String value) {
-            addCriterion("node_layer >", value, "nodeLayer");
+        public Criteria andClsEqualTo(Integer value) {
+            addCriterion("cls =", value, "cls");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerGreaterThanOrEqualTo(String value) {
-            addCriterion("node_layer >=", value, "nodeLayer");
+        public Criteria andClsNotEqualTo(Integer value) {
+            addCriterion("cls <>", value, "cls");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerLessThan(String value) {
-            addCriterion("node_layer <", value, "nodeLayer");
+        public Criteria andClsGreaterThan(Integer value) {
+            addCriterion("cls >", value, "cls");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerLessThanOrEqualTo(String value) {
-            addCriterion("node_layer <=", value, "nodeLayer");
+        public Criteria andClsGreaterThanOrEqualTo(Integer value) {
+            addCriterion("cls >=", value, "cls");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerLike(String value) {
-            addCriterion("node_layer like", value, "nodeLayer");
+        public Criteria andClsLessThan(Integer value) {
+            addCriterion("cls <", value, "cls");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerNotLike(String value) {
-            addCriterion("node_layer not like", value, "nodeLayer");
+        public Criteria andClsLessThanOrEqualTo(Integer value) {
+            addCriterion("cls <=", value, "cls");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerIn(List<String> values) {
-            addCriterion("node_layer in", values, "nodeLayer");
+        public Criteria andClsIn(List<Integer> values) {
+            addCriterion("cls in", values, "cls");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerNotIn(List<String> values) {
-            addCriterion("node_layer not in", values, "nodeLayer");
+        public Criteria andClsNotIn(List<Integer> values) {
+            addCriterion("cls not in", values, "cls");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerBetween(String value1, String value2) {
-            addCriterion("node_layer between", value1, value2, "nodeLayer");
+        public Criteria andClsBetween(Integer value1, Integer value2) {
+            addCriterion("cls between", value1, value2, "cls");
             return (Criteria) this;
         }
 
-        public Criteria andNodeLayerNotBetween(String value1, String value2) {
-            addCriterion("node_layer not between", value1, value2, "nodeLayer");
+        public Criteria andClsNotBetween(Integer value1, Integer value2) {
+            addCriterion("cls not between", value1, value2, "cls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafIsNull() {
-            addCriterion("is_leaf is null");
+        public Criteria andIconClsIsNull() {
+            addCriterion("icon_cls is null");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafIsNotNull() {
-            addCriterion("is_leaf is not null");
+        public Criteria andIconClsIsNotNull() {
+            addCriterion("icon_cls is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafEqualTo(String value) {
-            addCriterion("is_leaf =", value, "isLeaf");
+        public Criteria andIconClsEqualTo(String value) {
+            addCriterion("icon_cls =", value, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafNotEqualTo(String value) {
-            addCriterion("is_leaf <>", value, "isLeaf");
+        public Criteria andIconClsNotEqualTo(String value) {
+            addCriterion("icon_cls <>", value, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafGreaterThan(String value) {
-            addCriterion("is_leaf >", value, "isLeaf");
+        public Criteria andIconClsGreaterThan(String value) {
+            addCriterion("icon_cls >", value, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafGreaterThanOrEqualTo(String value) {
-            addCriterion("is_leaf >=", value, "isLeaf");
+        public Criteria andIconClsGreaterThanOrEqualTo(String value) {
+            addCriterion("icon_cls >=", value, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafLessThan(String value) {
-            addCriterion("is_leaf <", value, "isLeaf");
+        public Criteria andIconClsLessThan(String value) {
+            addCriterion("icon_cls <", value, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafLessThanOrEqualTo(String value) {
-            addCriterion("is_leaf <=", value, "isLeaf");
+        public Criteria andIconClsLessThanOrEqualTo(String value) {
+            addCriterion("icon_cls <=", value, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafLike(String value) {
-            addCriterion("is_leaf like", value, "isLeaf");
+        public Criteria andIconClsLike(String value) {
+            addCriterion("icon_cls like", value, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafNotLike(String value) {
-            addCriterion("is_leaf not like", value, "isLeaf");
+        public Criteria andIconClsNotLike(String value) {
+            addCriterion("icon_cls not like", value, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafIn(List<String> values) {
-            addCriterion("is_leaf in", values, "isLeaf");
+        public Criteria andIconClsIn(List<String> values) {
+            addCriterion("icon_cls in", values, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafNotIn(List<String> values) {
-            addCriterion("is_leaf not in", values, "isLeaf");
+        public Criteria andIconClsNotIn(List<String> values) {
+            addCriterion("icon_cls not in", values, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafBetween(String value1, String value2) {
-            addCriterion("is_leaf between", value1, value2, "isLeaf");
+        public Criteria andIconClsBetween(String value1, String value2) {
+            addCriterion("icon_cls between", value1, value2, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andIsLeafNotBetween(String value1, String value2) {
-            addCriterion("is_leaf not between", value1, value2, "isLeaf");
+        public Criteria andIconClsNotBetween(String value1, String value2) {
+            addCriterion("icon_cls not between", value1, value2, "iconCls");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconIsNull() {
-            addCriterion("node_icon is null");
+        public Criteria andCheckedIsNull() {
+            addCriterion("checked is null");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconIsNotNull() {
-            addCriterion("node_icon is not null");
+        public Criteria andCheckedIsNotNull() {
+            addCriterion("checked is not null");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconEqualTo(String value) {
-            addCriterion("node_icon =", value, "nodeIcon");
+        public Criteria andCheckedEqualTo(String value) {
+            addCriterion("checked =", value, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconNotEqualTo(String value) {
-            addCriterion("node_icon <>", value, "nodeIcon");
+        public Criteria andCheckedNotEqualTo(String value) {
+            addCriterion("checked <>", value, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconGreaterThan(String value) {
-            addCriterion("node_icon >", value, "nodeIcon");
+        public Criteria andCheckedGreaterThan(String value) {
+            addCriterion("checked >", value, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconGreaterThanOrEqualTo(String value) {
-            addCriterion("node_icon >=", value, "nodeIcon");
+        public Criteria andCheckedGreaterThanOrEqualTo(String value) {
+            addCriterion("checked >=", value, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconLessThan(String value) {
-            addCriterion("node_icon <", value, "nodeIcon");
+        public Criteria andCheckedLessThan(String value) {
+            addCriterion("checked <", value, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconLessThanOrEqualTo(String value) {
-            addCriterion("node_icon <=", value, "nodeIcon");
+        public Criteria andCheckedLessThanOrEqualTo(String value) {
+            addCriterion("checked <=", value, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconLike(String value) {
-            addCriterion("node_icon like", value, "nodeIcon");
+        public Criteria andCheckedLike(String value) {
+            addCriterion("checked like", value, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconNotLike(String value) {
-            addCriterion("node_icon not like", value, "nodeIcon");
+        public Criteria andCheckedNotLike(String value) {
+            addCriterion("checked not like", value, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconIn(List<String> values) {
-            addCriterion("node_icon in", values, "nodeIcon");
+        public Criteria andCheckedIn(List<String> values) {
+            addCriterion("checked in", values, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconNotIn(List<String> values) {
-            addCriterion("node_icon not in", values, "nodeIcon");
+        public Criteria andCheckedNotIn(List<String> values) {
+            addCriterion("checked not in", values, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconBetween(String value1, String value2) {
-            addCriterion("node_icon between", value1, value2, "nodeIcon");
+        public Criteria andCheckedBetween(String value1, String value2) {
+            addCriterion("checked between", value1, value2, "checked");
             return (Criteria) this;
         }
 
-        public Criteria andNodeIconNotBetween(String value1, String value2) {
-            addCriterion("node_icon not between", value1, value2, "nodeIcon");
+        public Criteria andCheckedNotBetween(String value1, String value2) {
+            addCriterion("checked not between", value1, value2, "checked");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageIsNull() {
+            addCriterion("page is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageIsNotNull() {
+            addCriterion("page is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageEqualTo(String value) {
+            addCriterion("page =", value, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageNotEqualTo(String value) {
+            addCriterion("page <>", value, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageGreaterThan(String value) {
+            addCriterion("page >", value, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageGreaterThanOrEqualTo(String value) {
+            addCriterion("page >=", value, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageLessThan(String value) {
+            addCriterion("page <", value, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageLessThanOrEqualTo(String value) {
+            addCriterion("page <=", value, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageLike(String value) {
+            addCriterion("page like", value, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageNotLike(String value) {
+            addCriterion("page not like", value, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageIn(List<String> values) {
+            addCriterion("page in", values, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageNotIn(List<String> values) {
+            addCriterion("page not in", values, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageBetween(String value1, String value2) {
+            addCriterion("page between", value1, value2, "page");
+            return (Criteria) this;
+        }
+
+        public Criteria andPageNotBetween(String value1, String value2) {
+            addCriterion("page not between", value1, value2, "page");
             return (Criteria) this;
         }
     }

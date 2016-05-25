@@ -33,7 +33,7 @@
     <!-- spring与mybatis整合配置，扫描所有dao -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
-        <property name="basePackage" value="com.omiphane.generator.dao"/>
+        <property name="basePackage" value="com.omiphane.generator.dao,com.omiphane.dao"/>
     </bean >
 
 
@@ -51,5 +51,7 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
-
+    <context:component-scan base-package="com.omiphane.service">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Service"/>
+    </context:component-scan>
 </beans>

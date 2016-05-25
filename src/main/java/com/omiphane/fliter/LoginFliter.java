@@ -1,6 +1,5 @@
 package com.omiphane.fliter;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -10,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ *
  * Created by Administrator on 2015/3/12.
  */
 public class LoginFliter extends OncePerRequestFilter {
