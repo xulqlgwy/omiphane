@@ -1,5 +1,3 @@
-var deviceIds = "";
-
 Ext.define('Pandora.view.TankTreeView',{
     extend:'Ext.tree.Panel',
     id:'nodeTree',
@@ -23,13 +21,13 @@ Ext.define('Pandora.view.TankTreeView',{
             setParentChecked(node,state);
 
             var groups = this.getChecked();
+
+            //清空历史id
             deviceIds = "";
             groups.forEach(function(group){
-                if(group.get('id') != '0'){
-                    if(getNodeType(group.get('id')) == "node_device"){
-                        var nodeId = getNodeId(group.get('id'));
-                        deviceIds += nodeId + "," ;
-                    }
+                var nodeId = group.get('id');
+                if( nodeId != '0' && nodeId != undefined && nodeId != null && nodeId != ""){
+                    deviceIds += nodeId + "," ;
                 }
             });
             var devStore = Ext.getCmp('deviceListPanel').store;

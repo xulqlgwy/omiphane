@@ -1,6 +1,7 @@
 package com.omiphane.controller;
 
 import com.omiphane.generator.dao.UserMapper;
+import com.omiphane.generator.model.Device;
 import com.omiphane.generator.model.Node;
 import com.omiphane.generator.model.User;
 import com.omiphane.generator.model.UserExample;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -49,33 +51,32 @@ public class NodeGroupController extends BaseController{
         return new ModelAndView(ROOM_MANAGE, modelMap);
     }
 
-    private  void   testA(){
-        UserExample userExample = new UserExample();
-        List<User> user = userMapper.selectByExample(userExample);
-        logger.info("",user.size());
-
-    }
 
     @RequestMapping("/")
     public
     @ResponseBody
     ModelAndView showHome(ModelMap modelMap,HttpServletRequest request){
-        testA();
         return new ModelAndView(AREA_MAIN_VIEW);
     }
-
-
 
 
     @RequestMapping("/get/deviceList")
     public
     @ResponseBody
     Map<String, Object> getDeviceList(ModelMap modelMap,HttpServletRequest request){
-        String s = request.getParameter("extraParam");
         Map<String, Object> returnMap = new HashMap<String, Object>();
-        if(!StringUtils.isEmpty(s)){
-//            List<DeviceRealData> devices = deviceService.getDeiceListByIds(s);
-//            returnMap.put("devices",devices);
+
+        String strIds = request.getParameter("extraParam");
+        if(!StringUtils.isEmpty(strIds)){
+            String[] strId = strIds.split(",");
+            List<Integer> nodeIds = new ArrayList<Integer>();
+            for (String id : strId){
+                if (!StringUtils.isEmpty(id)){
+                    nodeIds.add(Integer.valueOf(id));
+                }
+            }
+            List<Device> devices = nodeService.getDeviceList(nodeIds);
+            returnMap.put("devices",devices);
         }
         return  returnMap;
     }

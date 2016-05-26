@@ -2,14 +2,12 @@ package com.omiphane.service.impl;
 
 import com.omiphane.dao.DeviceDao;
 import com.omiphane.dao.DeviceRealDataDao;
-import com.omiphane.model.Device;
+import com.omiphane.generator.dao.DeviceMapper;
 import com.omiphane.model.DeviceRealData;
 import com.omiphane.model.NodeGroup;
 import com.omiphane.model.ReportQueryForm;
 import com.omiphane.service.DeviceService;
-import com.omiphane.utilities.PageConstant;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cglib.beans.BeanCopier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -17,7 +15,10 @@ import org.springframework.util.StringUtils;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 @Service
@@ -30,43 +31,14 @@ public class DeviceServiceImpl implements DeviceService{
 	@Autowired
 	private DeviceRealDataDao deviceRealDataDao;
 
+	@Autowired
+	private DeviceMapper deviceMapper;
 
-	@Override
-	public List<Device> getDeviceList() {
-		return deviceDao.getDeviceListByCompanyId(1,1);
-	}
 
 	@Override
 	public List<DeviceRealData> getDeiceListByIds(String ids) {
-		List<Integer> idList = new ArrayList<Integer>();
-		String[] str = ids.split(",");
-		for (int i = 0 ; i< str.length ; i++){
-			if (StringUtils.isEmpty(str[i])){
-				continue;
-			}
 
-			idList.add(Integer.valueOf(str[i]));
-		}
-
-		List<Device> devices = deviceDao.getDeviceListByIds(idList);
-		List<DeviceRealData> deviceRealDatas =  deviceRealDataDao.getRealDataByDeviceIds(idList);
-		for (Device device : devices){
-			boolean bFind = false;
-			for (DeviceRealData realData : deviceRealDatas){
-				if ( device.getDid() ==  realData.getDeviceId()){
-					PageConstant.Device2Data.copy(device, realData, null);
-					bFind = true;
-					break;
-				}
-			}
-
-			if (!bFind){
-				DeviceRealData deviceRealData = new DeviceRealData();
-				PageConstant.Device2Data.copy(device,deviceRealData,null);
-				deviceRealDatas.add(deviceRealData);
-			}
-		}
-		return  deviceRealDatas;
+		return  null;
 	}
 
 	@Override
@@ -126,4 +98,6 @@ public class DeviceServiceImpl implements DeviceService{
 			e.printStackTrace();
 		}
 	}
+
+
 }

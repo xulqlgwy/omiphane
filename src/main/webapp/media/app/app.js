@@ -19,6 +19,11 @@ Ext.application({
  */
 var mapObject;
 var comboCompanyId;
+/**
+ *  全局变量，当前被选中的id
+ * @type {string}
+ */
+var deviceIds = "";
 //function initWebSocket(){
 //    var ws = new WebSocket("ws://127.0.0.1:8084");
 //    ws.onopen = function(evt) {

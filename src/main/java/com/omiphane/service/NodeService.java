@@ -1,5 +1,6 @@
 package com.omiphane.service;
 
+import com.omiphane.generator.model.Device;
 import com.omiphane.generator.model.Node;
 import com.omiphane.model.Company;
 import com.omiphane.model.DeviceRealData;
@@ -23,6 +24,8 @@ public interface NodeService {
     public List<Company> getCompaniesByFilter(Integer id, String filter);
 
 	public DeviceRealData getRealDataByDevId(String devId);
+
+	public  List<Device> getDeviceList(List<Integer> nodeIds);
 
 
 

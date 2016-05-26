@@ -4,12 +4,14 @@ import com.omiphane.dao.CompanyDao;
 import com.omiphane.dao.DeviceDao;
 import com.omiphane.dao.DeviceRealDataDao;
 import com.omiphane.dao.NodeGroupDao;
+import com.omiphane.generator.dao.DeviceMapper;
+import com.omiphane.generator.dao.DeviceNodeRelMapper;
 import com.omiphane.generator.dao.NodeMapper;
-import com.omiphane.generator.model.Node;
-import com.omiphane.generator.model.NodeExample;
+import com.omiphane.generator.model.*;
 import com.omiphane.model.Company;
 import com.omiphane.model.DeviceRealData;
 import com.omiphane.model.NodeGroup;
+import com.omiphane.service.AbstractService;
 import com.omiphane.service.NodeService;
 import com.omiphane.utilities.PageConstant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,7 @@ import java.util.List;
 
 @Service
 @Transactional
-public class NodeGroupImpl implements NodeService {
+public class NodeGroupImpl implements NodeService,AbstractService {
 
 	@Autowired
 	private NodeGroupDao nodeGroupDao;
@@ -39,6 +41,12 @@ public class NodeGroupImpl implements NodeService {
 
 	@Autowired
 	private NodeMapper nodeMapper ;
+
+	@Autowired
+	private DeviceNodeRelMapper deviceNodeRelMapper;
+
+	@Autowired
+	private DeviceMapper deviceMapper;
 	
 	@Override
 	public int insertNodeGroup(NodeGroup nodeGroup) {
@@ -132,5 +140,26 @@ public class NodeGroupImpl implements NodeService {
 			return null;
 		}
 		return deviceRealDataDao.getRealDataByDeviceId(devId);
+	}
+
+
+	/**
+	 * 根据父节点获取设备Id
+	 * @param nodeIds
+	 * @return
+	 */
+	@Override
+	public List<Device> getDeviceList(List<Integer> nodeIds) {
+		DeviceNodeRelExample deviceNodeRelExample = new DeviceNodeRelExample();
+		deviceNodeRelExample.createCriteria().andParentIdIn(nodeIds);
+		List<DeviceNodeRel> deviceNodeRels = deviceNodeRelMapper.selectByExample(deviceNodeRelExample);
+
+		List<String> deviceIds = new ArrayList<String>();
+		for (DeviceNodeRel nodeRel : deviceNodeRels){
+			deviceIds.add(nodeRel.getDeviceId());
+		}
+		DeviceExample deviceExample = new DeviceExample();
+		deviceExample.createCriteria().andDeviceIdIn(deviceIds);
+		return deviceMapper.selectByExample(deviceExample);
 	}
 }

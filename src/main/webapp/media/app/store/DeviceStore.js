@@ -1,7 +1,7 @@
 Ext.define('Pandora.store.DeviceStore', {
     extend: 'Ext.data.Store',
-    requires: 'Pandora.model.DeviceRealDataModel',
-    model: 'Pandora.model.DeviceRealDataModel',
+    requires: 'Pandora.model.DeviceModel',
+    model: 'Pandora.model.DeviceModel',
     proxy: {
         type: 'ajax',
         url: '/get/deviceList',

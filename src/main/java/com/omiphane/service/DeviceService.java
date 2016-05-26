@@ -11,8 +11,6 @@ import java.util.List;
 
 public interface DeviceService {
 
-	public List<Device> getDeviceList();
-
 	public List<DeviceRealData> getDeiceListByIds(String ids);
 
 	public List<NodeGroup> getDeviceTree(String user);

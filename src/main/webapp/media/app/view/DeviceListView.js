@@ -8,30 +8,38 @@ Ext.define('Pandora.view.DeviceListView', {
     
     initComponent: function() {
         this.columns = [
-            { text: '类型',  dataIndex: 'type' },
-            { text: '设备编号',  dataIndex: 'devId' },
-            { text: '自编号',  dataIndex: 'nickName' },
-            { text: '时间', dataIndex: 'gpsTime' },
-            { text: '经度', dataIndex: 'longitude' },
-            { text: '纬度', dataIndex: 'latitude' },
-            { text: '速度', dataIndex: 'speed' },
-            { text: '角度', dataIndex: 'angel' },
-            { text: '位置', dataIndex: 'location' },
-            { text: '重量', dataIndex: 'weight' },
-            { text: '报警信息', dataIndex: 'alarmData' },
-            { text: '生产厂家',  dataIndex: 'product' },
-            { text: '型号',  dataIndex: 'model' },
-            { text: '创建时间',  dataIndex: 'creationDate' },
-            { text: 'sim卡号',  dataIndex: 'simCardNum' },
-            { text: '使用时间',  dataIndex: 'dateCost' },
-            { text: '上次维修时间',  dataIndex: 'lastModifiedDate' },
-            { text: '报警值', dataIndex: 'threshold'},
-            { text: '最大称重', dataIndex: 'keyValue'}
+            {text:'ID', dataIndex :'id'},
+            {text:'编号', dataIndex :'deviceId'},
+            {text:'类型', dataIndex :'deviceType'},
+            {text:'序列号', dataIndex :'deviceSn'},
+            {text:'名称', dataIndex :'deviceName'},
+            {text:'父节点编号', dataIndex :'parentNodeId'}
         ];
+        //this.columns = [
+        //    { text: '类型',  dataIndex: 'type' },
+        //    { text: '设备编号',  dataIndex: 'devId' },
+        //    { text: '自编号',  dataIndex: 'nickName' },
+        //    { text: '时间', dataIndex: 'gpsTime' },
+        //    { text: '经度', dataIndex: 'longitude' },
+        //    { text: '纬度', dataIndex: 'latitude' },
+        //    { text: '速度', dataIndex: 'speed' },
+        //    { text: '角度', dataIndex: 'angel' },
+        //    { text: '位置', dataIndex: 'location' },
+        //    { text: '重量', dataIndex: 'weight' },
+        //    { text: '报警信息', dataIndex: 'alarmData' },
+        //    { text: '生产厂家',  dataIndex: 'product' },
+        //    { text: '型号',  dataIndex: 'model' },
+        //    { text: '创建时间',  dataIndex: 'creationDate' },
+        //    { text: 'sim卡号',  dataIndex: 'simCardNum' },
+        //    { text: '使用时间',  dataIndex: 'dateCost' },
+        //    { text: '上次维修时间',  dataIndex: 'lastModifiedDate' },
+        //    { text: '报警值', dataIndex: 'threshold'},
+        //    { text: '最大称重', dataIndex: 'keyValue'}
+        //];
         this.listeners =  {
             itemdblclick: function (me, record, item, index, e, eOpts) {
                 var _window=new Ext.Window({
-                    title:record.get("devId"),
+                    title:record.get("id"),
                     width:500,
                     height:350,
                     isModel:true,

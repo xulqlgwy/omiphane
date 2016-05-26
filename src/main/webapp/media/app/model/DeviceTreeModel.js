@@ -30,5 +30,9 @@ Ext.define('Pandora.model.DeviceTreeModel',{
         name : 'checked',
         type : 'bool',
         defaultValue :'false'
+    }, {
+        name : 'nodeType',
+        type : 'string',
+        defaultValue : null
     }]
 });
