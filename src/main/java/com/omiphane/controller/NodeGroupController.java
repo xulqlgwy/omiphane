@@ -3,9 +3,6 @@ package com.omiphane.controller;
 import com.omiphane.generator.dao.UserMapper;
 import com.omiphane.generator.model.Device;
 import com.omiphane.generator.model.Node;
-import com.omiphane.generator.model.User;
-import com.omiphane.generator.model.UserExample;
-import com.omiphane.model.DeviceRealData;
 import com.omiphane.service.NodeService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,6 +95,25 @@ public class NodeGroupController extends BaseController{
 //        logger.warn(deviceDataMapping.toString());
         return  returnMap;
     }
+
+    @RequestMapping("/get/columnList")
+    public
+    @ResponseBody
+    Map<String, Object> getColumnList(ModelMap modelMap,HttpServletRequest request){
+        Map<String, Object> returnMap = new HashMap<String, Object>();
+        List<Device> devices = new ArrayList<Device>();
+
+        Device device = new Device();
+        device.setDeviceId("1111");
+        device.setDeviceName("saaa");
+        devices.add(device);
+
+
+        returnMap.put("columnJson", devices);
+//        logger.warn(deviceDataMapping.toString());
+        return  returnMap;
+    }
+
 //    /**
 //     *   暂时不用
 //     */

@@ -109,7 +109,8 @@ Ext.define('Pandora.view.DeviceListView', {
                 _window.show();
             },
             itemclick : function(me,record,item,index,e,eOption){
-                mapObject.centerPoint(record);
+                globalInfo.mapObject.centerPoint(record);
+
             }
         }
         this.callParent();

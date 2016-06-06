@@ -1,11 +1,2 @@
-<script>
-    var localObj = window.location;
-    var contextPath = localObj.pathname.split("/")[1];
-    var basePath = "";
-    if(contextPath.length == 0){
-        basePath = localObj.protocol + "//" + localObj.host
-    }else{
-        basePath = localObj.protocol + "//" + localObj.host + "/" + contextPath;
-    }
-</script>
+
 <!-- END JAVASCRIPTS -->

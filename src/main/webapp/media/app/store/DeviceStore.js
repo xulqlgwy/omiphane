@@ -13,7 +13,7 @@ Ext.define('Pandora.store.DeviceStore', {
     },
     listeners: {
         'beforeload': function (store, op, options) {
-            var params = {'extraParam':deviceIds};
+            var params = {'extraParam':globalInfo.deviceIds};
             Ext.apply(store.proxy.extraParams, params);
         },
         'callback' : function(r,options,success){

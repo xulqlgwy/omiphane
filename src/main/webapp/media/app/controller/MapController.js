@@ -23,9 +23,9 @@ Ext.define('Pandora.controller.MapController', {
          初始化地图
          */
 
-        if (mapObject == null){
-            mapObject = new MapInfo();
-            mapObject.map = new BMap.Map(div);
+        if (globalInfo.mapObject == null){
+            globalInfo.mapObject = new MapInfo();
+            globalInfo.mapObject.map = new BMap.Map(div);
         }
         //默认位置
         //var point = new BMap.Point(116.3972,39.9096);
@@ -40,8 +40,8 @@ Ext.define('Pandora.controller.MapController', {
         localCity.get(function(result){
             var cityName = result.name;
             var localPoint = new BMap.Point(result.center.lng, result.center.lat);
-            mapObject.initMap(localPoint , 12 ,1 ,1 ,1);
-            mapObject.map.setCenter(localPoint,cityName);
+            globalInfo.mapObject.initMap(localPoint , 12 ,1 ,1 ,1);
+            globalInfo.mapObject.map.setCenter(localPoint,cityName);
         });
 
 

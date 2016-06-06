@@ -25,6 +25,8 @@
 ##    <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5&ak=C09c918bbe0b24d988da51a15644d98a"></script>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2028c3076245ea17fd1ad6819f3e0543"></script>
     <script type="text/javascript" src="${rc.contextPath}/media/app/MapInfo.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/media/app/js/ListColumn.js"></script>
+    <script type="text/javascript" src="${rc.contextPath}/media/app/js/GlobalInfo.js"></script>
 
     <script type="text/javascript" src="${rc.contextPath}/media/app/utils/datetime/UX_TimePickerField.js"></script>
     <script type="text/javascript" src="${rc.contextPath}/media/app/utils/datetime/UX_DateTimePicker.js"></script>

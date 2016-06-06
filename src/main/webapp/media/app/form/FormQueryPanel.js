@@ -35,7 +35,7 @@ Ext.define('Pandora.form.FormQueryPanel', {
             queryCaching:false,//当为false，每次都会从后台请求数据
             listeners:{
                 "select":function(combo,record,opt){
-                    comboCompanyId  = record[0].get('cid');
+                    globalInfo.comboCompanyId  = record[0].get('cid');
                 }
             }
         },{
