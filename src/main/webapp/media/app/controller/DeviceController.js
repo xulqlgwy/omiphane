@@ -8,6 +8,7 @@ Ext.define('Pandora.controller.DeviceController', {
     stores: ['DeviceStore'],
 
     init : function () {
+
         this.callParent();
     }
 })

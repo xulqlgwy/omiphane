@@ -51,7 +51,7 @@ var task = { //Ext的定时器，每隔2秒刷新store。
 };
 
 
-Ext.TaskManager.start(task);
+//Ext.TaskManager.start(task);
 
 Ext.define('Pandora.view.BusTreeView',{
     extend:'Ext.tree.Panel',

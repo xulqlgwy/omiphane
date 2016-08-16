@@ -13,8 +13,8 @@ Ext.define('Pandora.view.TankTreeView',{
             root.extraParams.root = record.data.id;
         },
         itemclick: function(view,record,item,index,e,eOpts) {
-            var str = record.data.memo;
-            //alert(str);
+            //var str = record.data.memo;
+
         },
         'checkchange': function(node, state) {
             setChildChecked(node,state);
@@ -30,6 +30,7 @@ Ext.define('Pandora.view.TankTreeView',{
                     deviceIds += nodeId + "," ;
                 }
             });
+            //changePanel();
             var devStore = Ext.getCmp('deviceListPanel').store;
             devStore.load({
                 callback : function(r,options,success){
@@ -51,3 +52,21 @@ Ext.define('Pandora.view.TankTreeView',{
         this.callParent();
     }
 });
+
+function changePanel(){
+    var  col = [
+        { text: '类型',  dataIndex: 'type' },
+        { text: '设备编号',  dataIndex: 'devId' },
+        { text: '自编号',  dataIndex: 'nickName' },
+        { text: '时间', dataIndex: 'gpsTime' },
+        { text: '经度', dataIndex: 'longitude' },
+        { text: '纬度', dataIndex: 'latitude' },
+        { text: '速度', dataIndex: 'speed' },
+        { text: '角度', dataIndex: 'angel' },
+        { text: '位置', dataIndex: 'location' }
+        ];
+
+    var grid = Ext.getCmp('deviceListPanel');
+    grid.reconfigure(grid.store,col);
+
+}

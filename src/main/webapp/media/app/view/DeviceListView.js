@@ -110,8 +110,29 @@ Ext.define('Pandora.view.DeviceListView', {
             },
             itemclick : function(me,record,item,index,e,eOption){
                 mapObject.centerPoint(record);
+            },
+            afterrender  : function(me,eOpts){
+                //changePanel(me);
             }
-        }
+        };
+
         this.callParent();
     }
 });
+
+function changePanel(grid){
+    var  col = [
+        { text: '类型',  dataIndex: 'type' },
+        { text: '设备编号',  dataIndex: 'devId' },
+        { text: '自编号',  dataIndex: 'nickName' },
+        { text: '时间', dataIndex: 'gpsTime' },
+        { text: '经度', dataIndex: 'longitude' },
+        { text: '纬度', dataIndex: 'latitude' },
+        { text: '速度', dataIndex: 'speed' },
+        { text: '角度', dataIndex: 'angel' },
+        { text: '位置', dataIndex: 'location' }
+    ];
+
+    grid.reconfigure(grid.store,col);
+
+}
