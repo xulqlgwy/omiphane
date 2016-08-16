@@ -17,29 +17,29 @@ Ext.define('Pandora.view.TankTreeView',{
 
         },
         'checkchange': function(node, state) {
-            setChildChecked(node,state);
-            setParentChecked(node,state);
+            globalInfo.setChildChecked(node,state);
+            globalInfo.setParentChecked(node,state);
 
             var groups = this.getChecked();
 
             //清空历史id
-            deviceIds = "";
+            globalInfo.deviceIds = "";
             groups.forEach(function(group){
                 var nodeId = group.get('id');
                 if( nodeId != '0' && nodeId != undefined && nodeId != null && nodeId != ""){
-                    deviceIds += nodeId + "," ;
+                    globalInfo.deviceIds += nodeId + "," ;
                 }
             });
             //changePanel();
             var devStore = Ext.getCmp('deviceListPanel').store;
             devStore.load({
                 callback : function(r,options,success){
-                    mapObject.removeAllMarker();
+                    globalInfo.mapObject.removeAllMarker();
                     r.forEach(function(record){
-                        if(mapObject == null){
+                        if(globalInfo.mapObject == null){
                             Ext.Msg.alert('警告', '地图加载失败.');
                         }else {
-                            mapObject.updateMarkerArray(record);
+                            globalInfo.mapObject.updateMarkerArray(record);
                         }
                     })
                 }

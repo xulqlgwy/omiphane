@@ -19,12 +19,12 @@ var task = { //Ext的定时器，每隔2秒刷新store。
                 var deviceData = Ext.JSON.decode(response.responseText).realDataList;
                 devStore.loadData(deviceData,false);
                 for(var i = 0; i < devStore.getCount() ; i++){
-                    mapObject.updateMarkerArray(devStore.getAt(i));
+                    globalInfo.mapObject.updateMarkerArray(devStore.getAt(i));
                 }
 
 
                 //for (var i = 0 ; i< deviceData.length ; i++){
-                //    mapObject.updateMarkerArray(deviceData[i]);
+                //    globalInfo.mapObject.updateMarkerArray(deviceData[i]);
                 //}
 
                 //alert(deviceData.length);
@@ -36,12 +36,12 @@ var task = { //Ext的定时器，每隔2秒刷新store。
 
         //devStore.load({
         //    callback : function(r,options,success){
-        //        mapObject.removeAllMarker();
+        //        globalInfo.mapObject.removeAllMarker();
         //        r.forEach(function(record){
-        //            if(mapObject == null){
+        //            if(globalInfo.mapObject == null){
         //                Ext.Msg.alert('警告', '地图加载失败.');
         //            }else {
-        //                mapObject.updateMarkerArray(record);
+        //                globalInfo.mapObject.updateMarkerArray(record);
         //            }
         //        })
         //    }
@@ -62,8 +62,9 @@ Ext.define('Pandora.view.BusTreeView',{
     listeners : {
 
         'checkchange': function(node, state) {
-            setChildChecked(node,state);
-            setParentChecked(node,state);
+            globalInfo.setChildChecked(node,state);
+            globalInfo.setParentChecked(node,state);
+            //setParentChecked(node,state);
 
             var groups = this.getChecked();
             busIds = "";
@@ -71,8 +72,8 @@ Ext.define('Pandora.view.BusTreeView',{
 
                 if(group.get('id') != '0'){
 
-                    if(getNodeType(group.get('id')) == "node_device"){
-                        var nodeId = getNodeId(group.get('id'));
+                    if(globalInfo.getNodeType(group.get('id')) == "node_device"){
+                        var nodeId = globalInfo.getNodeId(group.get('id'));
                         busIds += nodeId + "," ;
                     }
                 }
@@ -80,12 +81,12 @@ Ext.define('Pandora.view.BusTreeView',{
             var devStore = Ext.getCmp('deviceListPanel').store;
             devStore.load({
                 callback : function(r,options,success){
-                    mapObject.removeAllMarker();
+                    globalInfo.mapObject.removeAllMarker();
                     r.forEach(function(record){
-                        if(mapObject == null){
+                        if(globalInfo.mapObject == null){
                             Ext.Msg.alert('警告', '地图加载失败.');
                         }else {
-                            mapObject.updateMarkerArray(record);
+                            globalInfo.mapObject.updateMarkerArray(record);
                         }
                     })
                 }

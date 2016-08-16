@@ -16,7 +16,7 @@ Ext.define('Pandora.store.TypeComboStore', {
     },
     listeners:{
         'beforeload':function(store,op, options){
-            var params = {'extraParam':comboCompanyId};
+            var params = {'extraParam':globalInfo.comboCompanyId};
             Ext.apply(store.proxy.extraParams, params);
         }
     }
