@@ -119,6 +119,12 @@
 			<version>1.9.13</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<version>2.7</version>
+		</dependency>
+
 		<!-- 日志文件管理包 -->
 		<!-- log start -->
 		<dependency>
@@ -234,7 +240,7 @@
                     <scanIntervalSeconds>10</scanIntervalSeconds>
                     <httpConnector>
                         <!-- 设置端口-->
-                        <port>8084</port>
+                        <port>80</port>
                     </httpConnector>
                 </configuration>
             </plugin>

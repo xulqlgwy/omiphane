@@ -67,6 +67,8 @@ public class BaseController {
 
     public final static String CHART_VIEW = "/airmanage/charts";
 
+    public final static String GPS_VIEW = "gps/main";
+
 
 
     /**

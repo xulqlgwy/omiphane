@@ -4,6 +4,7 @@ import com.omiphane.dao.CompanyDao;
 import com.omiphane.dao.DeviceDao;
 import com.omiphane.dao.DeviceRealDataDao;
 import com.omiphane.dao.NodeGroupDao;
+import com.omiphane.generator.dao.DeviceDataMapper;
 import com.omiphane.generator.dao.DeviceMapper;
 import com.omiphane.generator.dao.DeviceNodeRelMapper;
 import com.omiphane.generator.dao.NodeMapper;
@@ -46,7 +47,7 @@ public class NodeGroupImpl implements NodeService,AbstractService {
 	private DeviceNodeRelMapper deviceNodeRelMapper;
 
 	@Autowired
-	private DeviceMapper deviceMapper;
+	private DeviceDataMapper deviceDataMapper;
 	
 	@Override
 	public int insertNodeGroup(NodeGroup nodeGroup) {
@@ -135,12 +136,26 @@ public class NodeGroupImpl implements NodeService,AbstractService {
 	}
 
 	@Override
-	public DeviceRealData getRealDataByDevId(String devId) {
-		if (StringUtils.isEmpty(devId)){
-			return null;
+	public List<DeviceData> getRealDataByNodeId(List<Integer> nodeIds) {
+		DeviceNodeRelExample deviceNodeRelExample = new DeviceNodeRelExample();
+		deviceNodeRelExample.createCriteria().andParentIdIn(nodeIds);
+		List<DeviceNodeRel> deviceNodeRels = deviceNodeRelMapper.selectByExample(deviceNodeRelExample);
+
+		List<String> deviceIds = new ArrayList<String>();
+		for (DeviceNodeRel nodeRel : deviceNodeRels){
+			for (Integer  nId :  nodeIds){
+				if (nId.equals(nodeRel.getParentId())){
+					deviceIds.add(nodeRel.getDeviceId());
+				}
+			}
 		}
-		return deviceRealDataDao.getRealDataByDeviceId(devId);
+
+		DeviceDataExample deviceExample = new DeviceDataExample();
+		deviceExample.createCriteria().andDeviceIdIn(deviceIds);
+		return deviceDataMapper.selectByExample(deviceExample);
 	}
+
+
 
 
 	/**
@@ -148,18 +163,23 @@ public class NodeGroupImpl implements NodeService,AbstractService {
 	 * @param nodeIds
 	 * @return
 	 */
-	@Override
-	public List<Device> getDeviceList(List<Integer> nodeIds) {
-		DeviceNodeRelExample deviceNodeRelExample = new DeviceNodeRelExample();
-		deviceNodeRelExample.createCriteria().andParentIdIn(nodeIds);
-		List<DeviceNodeRel> deviceNodeRels = deviceNodeRelMapper.selectByExample(deviceNodeRelExample);
-
-		List<String> deviceIds = new ArrayList<String>();
-		for (DeviceNodeRel nodeRel : deviceNodeRels){
-			deviceIds.add(nodeRel.getDeviceId());
-		}
-		DeviceExample deviceExample = new DeviceExample();
-		deviceExample.createCriteria().andDeviceIdIn(deviceIds);
-		return deviceMapper.selectByExample(deviceExample);
-	}
+//	@Override
+//	public List<Device> getDeviceList(List<Integer> nodeIds) {
+//		DeviceNodeRelExample deviceNodeRelExample = new DeviceNodeRelExample();
+//		deviceNodeRelExample.createCriteria().andParentIdIn(nodeIds);
+//		List<DeviceNodeRel> deviceNodeRels = deviceNodeRelMapper.selectByExample(deviceNodeRelExample);
+//
+//		List<String> deviceIds = new ArrayList<String>();
+//		for (DeviceNodeRel nodeRel : deviceNodeRels){
+//			for (Integer  nId :  nodeIds){
+//				if (nId.equals(nodeRel.getParentId())){
+//					deviceIds.add(nodeRel.getDeviceId());
+//				}
+//			}
+//		}
+//
+//		DeviceExample deviceExample = new DeviceExample();
+//		deviceExample.createCriteria().andDeviceIdIn(deviceIds);
+//		return deviceMapper.selectByExample(deviceExample);
+//	}
 }

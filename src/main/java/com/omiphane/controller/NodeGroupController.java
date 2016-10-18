@@ -1,9 +1,15 @@
 package com.omiphane.controller;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.Gson;
 import com.omiphane.generator.dao.UserMapper;
+import com.omiphane.generator.model.ColumnDefine;
 import com.omiphane.generator.model.Device;
+import com.omiphane.generator.model.DeviceData;
 import com.omiphane.generator.model.Node;
 import com.omiphane.service.NodeService;
+import com.omiphane.service.ParameterService;
+import com.omiphane.vo.DeviceRealDataVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +40,9 @@ public class NodeGroupController extends BaseController{
     @Autowired
     private NodeService nodeService;
 
+    @Autowired
+    private ParameterService parameterService;
+
 
     @RequestMapping("/get/nodeGroupList")
     public
@@ -49,7 +58,7 @@ public class NodeGroupController extends BaseController{
     }
 
 
-    @RequestMapping("/")
+    @RequestMapping("/index")
     public
     @ResponseBody
     ModelAndView showHome(ModelMap modelMap,HttpServletRequest request){
@@ -72,8 +81,14 @@ public class NodeGroupController extends BaseController{
                     nodeIds.add(Integer.valueOf(id));
                 }
             }
-            List<Device> devices = nodeService.getDeviceList(nodeIds);
-            returnMap.put("devices",devices);
+            List<DeviceData> deviceDatas = nodeService.getRealDataByNodeId(nodeIds);
+            List<DeviceRealDataVo> jsonList = new ArrayList<DeviceRealDataVo>();
+            for (DeviceData deviceData : deviceDatas){
+                Gson gson = new Gson();
+                jsonList.add(gson.fromJson(deviceData.getJsonData(),DeviceRealDataVo.class));
+            }
+
+            returnMap.put("devices",jsonList);
         }
         return  returnMap;
     }
@@ -101,15 +116,10 @@ public class NodeGroupController extends BaseController{
     @ResponseBody
     Map<String, Object> getColumnList(ModelMap modelMap,HttpServletRequest request){
         Map<String, Object> returnMap = new HashMap<String, Object>();
-        List<Device> devices = new ArrayList<Device>();
 
-        Device device = new Device();
-        device.setDeviceId("1111");
-        device.setDeviceName("saaa");
-        devices.add(device);
+        List<ColumnDefine> columnDefines =  parameterService.getColumnDefineList();
 
-
-        returnMap.put("columnJson", devices);
+        returnMap.put("columnJson", columnDefines);
 //        logger.warn(deviceDataMapping.toString());
         return  returnMap;
     }

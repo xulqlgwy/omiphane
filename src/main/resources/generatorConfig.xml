@@ -18,7 +18,7 @@
 
         <!--connectionURL="jdbc:mysql://localhost:3306/omiphane"-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://192.168.85.128:3306/omiphane"
+                        connectionURL="jdbc:mysql://127.0.0.1:3306/omiphane"
                         userId="root"
                         password="12345">
         </jdbcConnection>
@@ -50,11 +50,13 @@
         <!--对应数据库表 mysql可以加入主键自增 字段命名 忽略某字段等-->
         <!--<table tableName="user" domainObjectName="User" />-->
         <!--<table tableName="device" domainObjectName="Device" />-->
-        <!--<table tableName="device_data" domainObjectName="DeviceData" />-->
-        <table tableName="enum_define" domainObjectName="EnumDefine" />
+        <table tableName="device_base" domainObjectName="DeviceBase" />
+        <table tableName="device_real" domainObjectName="DeviceReal" />
+        <!--<table tableName="enum_define" domainObjectName="EnumDefine" />-->
         <!--<table tableName="node" domainObjectName="Node" />-->
         <!--<table tableName="role_permission" domainObjectName="RolePermission" />-->
         <!--<table tableName="user_role" domainObjectName="UserRole" />-->
-        <table tableName="device_node_rel" domainObjectName="DeviceNodeRel" />
+        <!--<table tableName="device_node_rel" domainObjectName="DeviceNodeRel" />-->
+        <!--<table tableName="column_define" domainObjectName="ColumnDefine"/>-->
     </context>
 </generatorConfiguration>

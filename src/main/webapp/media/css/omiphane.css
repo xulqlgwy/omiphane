@@ -1,3 +1,17 @@
 .root_icon{
     background: url("../image/tree_icon/clustericon.png")!important;
 }
+
+.map_class {
+    /*background:#ff0000;*/
+    /*width: 500px;*/
+    /*height: 500px;*/
+
+    height:100vh;
+    width:100%;
+}
+
+.li_class {
+    margin: 20px;
+}
+
