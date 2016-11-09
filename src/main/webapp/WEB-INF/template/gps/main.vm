@@ -12,22 +12,22 @@
         </ul>
     </div>
 
-    <ul data-role="listview" data-split-icon="delete">
-        <li>
-            <img src="${rc.contextPath}/media/image/plot_gray/50.png" class="li_class"/>
-            <h3>Reviewer A</h3>
-            <p>jQuery Mobile 很方便的把这类结构调整为你看到的这个样式</p>
-        </li>
-        <li>
-            <img src="${rc.contextPath}/media/image/plot_blue/50.png" class="li_class"/>
-            <h3>Reviewer B</h3>
-            <p>jQuery Mobile 很方便的把这类结构调整为你看到的这个样式</p>
-        </li>
-        <li>
-            <img src="${rc.contextPath}/media/image/plot_red/50.png" class="li_class"/>
-            <h3>Reviewer B</h3>
-            <p>jQuery Mobile 很方便的把这类结构调整为你看到的这个样式</p>
-        </li>
+    <ul data-role="listview" data-split-icon="delete" id="real_data_list" class="ui-listview">
+##        <li>
+##            <img src="${rc.contextPath}/media/image/plot_gray/50.png" class="li_class"/>
+##            <h3>Reviewer A</h3>
+##            <p>jQuery Mobile 很方便的把这类结构调整为你看到的这个样式</p>
+##        </li>
+##        <li>
+##            <img src="${rc.contextPath}/media/image/plot_blue/50.png" class="li_class"/>
+##            <h3>Reviewer B</h3>
+##            <p>jQuery Mobile 很方便的把这类结构调整为你看到的这个样式</p>
+##        </li>
+##        <li>
+##            <img src="${rc.contextPath}/media/image/plot_red/50.png" class="li_class"/>
+##            <h3>Reviewer B</h3>
+##            <p>jQuery Mobile 很方便的把这类结构调整为你看到的这个样式</p>
+##        </li>
     </ul>
 
 
@@ -54,6 +54,26 @@
     <div data-role="footer" data-position="fixed">
         <h1>底部文本</h1>
     </div>
+</div>
+
+<div data-role="page" id="pagethree">
+    <div data-role="header">
+        <h1>参数设置页面</h1>
+        <div data-role="navbar">
+##            <ul>
+##                <li><a href="#pageone" data-icon="home">列表展示</a></li>
+##                <li><a href="#" class="ui-btn-active ui-state-persist" data-icon="arrow-r">地图展示</a></li>
+##            </ul>
+        </div>
+    </div>
+
+##    <div data-role="main" class="ui-content map_class" id="container">
+##    </div>
+
+    <div data-role="footer" data-position="fixed">
+        <h1>底部文本</h1>
+    </div>
+
 </div>
 
 

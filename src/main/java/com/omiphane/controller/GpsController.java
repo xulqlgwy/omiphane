@@ -1,5 +1,6 @@
 package com.omiphane.controller;
 
+import com.omiphane.generator.model.DeviceReal;
 import com.omiphane.service.GpsService;
 import com.omiphane.utilities.DeviceDataList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,7 +45,8 @@ public class GpsController extends BaseController{
             if (deviceDataList !=null && deviceDataList.getDeviceRealList().size() > 0){
                 resultMap.put(MESSAGE, deviceDataList.getDeviceRealList());
             }else {
-                gpsService.getDeviceBaseInfo();
+                List<DeviceReal> deviceRealList = gpsService.getDeviceBaseInfo();
+                resultMap.put(MESSAGE,deviceRealList);
             }
 
             return resultMap;
