@@ -10,27 +10,18 @@ import javax.servlet.ServletContextListener;
  */
 public class SocketServer  implements ServletContextListener {
     private static final Logger logger = Logger.getLogger(SocketServer.class);
-    public boolean isServerRunning;
-    public Thread serverThread;
 
+    private NettyServer nettyServer = null;
 
     @Override
     public void contextInitialized(ServletContextEvent servletContextEvent) {
         logger.warn("Server Start ===========================>");
-        isServerRunning = true ;
-        serverThread =  new Thread(new ServerThread(isServerRunning,servletContextEvent.getServletContext()));
-        serverThread.start();
+//        nettyServer = new NettyServer();
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent servletContextEvent) {
         logger.warn("Server Stop <============================");
-        if (serverThread != null){
-            try {
-                serverThread.join();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+
     }
 }

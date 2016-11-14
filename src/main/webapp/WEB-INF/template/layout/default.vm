@@ -13,9 +13,11 @@
 ##    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
-    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.css">
-    <script src="http://code.jquery.com/jquery-1.5.min.js"></script>
-    <script src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+    <link rel="stylesheet" href="${rc.contextPath}/media/css/themes/default/jquery.mobile.theme-1.4.0.min.css">
+##    <script src="http://code.jquery.com/jquery-1.5.min.js"></script>
+##    <script src="http://code.jquery.com/mobile/1.0a4.1/jquery.mobile-1.0a4.1.min.js"></script>
+    <script src="${rc.contextPath}/media/js/jquery.js"/>
+    <script src="${rc.contextPath}/media/js/jquery.mobile-1.4.0.js"/>
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=VCR1lTtWzfsvnu3FdNetnjx8qT6r5ri4"></script>
 
     ##jQuery 1.11.2
